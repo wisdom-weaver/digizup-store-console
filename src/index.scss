@@ -508,9 +508,13 @@ input:-webkit-autofill:active {
     display: flex;
     justify-content: center;
     align-items: center;
+    .form-container{
+        margin: 0 auto;
+    }
     .card{
         border-radius: 45px;
         padding: 5px 20px;
+        margin: 0 auto;
     }
     .card-title{
         width: 100%;

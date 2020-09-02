@@ -710,9 +710,14 @@ input:-webkit-autofill:active {
           align-items: center;
 }
 
+.Login .form-container, .Signup .form-container {
+  margin: 0 auto;
+}
+
 .Login .card, .Signup .card {
   border-radius: 45px;
   padding: 5px 20px;
+  margin: 0 auto;
 }
 
 .Login .card-title, .Signup .card-title {

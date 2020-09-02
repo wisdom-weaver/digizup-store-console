@@ -172,12 +172,12 @@ function Signup(props) {
     }
 
     const SignUpFormJSX = (signUpAuthkey && signUpKey == signUpAuthkey)?(
-        <div className="form-container">
+        <div className="form-container center">
             <div className="card">
                 <div className="card-title">
                     <span className="light_text">Sign</span>
                     <span className="heavy_text">Up</span>
-                    <span>{signUpKey}</span>
+                    {/* <span>{signUpKey}</span> */}
                 </div>
                 <div className="card-content">
                 <div className="log center">
@@ -229,7 +229,7 @@ function Signup(props) {
     ):(null)
 
     const SignUpExistsFormJSX = (signUpAuthkey && signUpKey == signUpAuthkey)?(
-        <div className="form-container">
+        <div className="form-container center" >
             <div className="card">
                 <div className="card-title">
                     <span className="light_text">Sign</span>
@@ -267,29 +267,34 @@ function Signup(props) {
 
     const SignUpPageJSX = ( signUpAuthkey && signUpKey == signUpAuthkey)?(
             <div className="Signup">
+                <div className="container">
                 <Fragment>
                     <Collapsible
                       accordion
                       popout
+                      style={{
+                          'flex-grow': '1'
+                      }}
                     >
                       <CollapsibleItem
                         expanded={false}
-                        header="New Admin User"
-                        icon={<Icon>filter_drama</Icon>}
+                        header={ <h6 className="center"><Icon>whatshot</Icon> New Admin User </h6> }
+                        className="center"
                         node="div"
                       >
                         {SignUpFormJSX}
                       </CollapsibleItem>
                       <CollapsibleItem
                         expanded={false}
-                        header="Already here on Digizup Store?"
-                        icon={<Icon>place</Icon>}
+                        header={ <h6 className="center"><Icon>place</Icon> Already here on Digizup Store? </h6> }
+                        className="center"
                         node="div"
                       >
                         {SignUpExistsFormJSX}
                       </CollapsibleItem>
                     </Collapsible>
                 </Fragment>
+                </div>
             </div>
         ):(
             <div className="Page">

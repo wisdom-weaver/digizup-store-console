@@ -23,10 +23,13 @@ function ProductSearchCard({product}) {
                 }}
                 accordion={false}>
                <CollapsibleItem
-                  expanded={dropdownStateOpen}
-                  onClick={()=>{setDropDownStateOpen(!dropdownStateOpen)}}
+                  expanded={false}
+                //   onClick={()=>{setDropDownStateOpen(!dropdownStateOpen)}}
                   header={
-                      <table className="white">
+                      <Fragment>
+                      <table 
+                        // onClick={()=>{setDropDownStateOpen(true)}} 
+                        className="white">
                           <tbody>
                             <tr key={uuid()}>
                                 <th>{product.id}</th>
@@ -34,10 +37,14 @@ function ProductSearchCard({product}) {
                             <tr>
                                 <td>Product Name: <NavLink to={`/product/${product.id}`} > <span className="text-link heavy_text">{product.productName}</span></NavLink></td>
                                 <td className="no-wrap valign-wrapper" >hasOptions:{(product.hasOptions?(<Icon className="primary-green-dark-text" >done_all</Icon>):(<Icon className="primary-red-text" >close</Icon>))}</td>                    
-                                <td>{ <div onClick={()=>{setDropDownStateOpen(!dropdownStateOpen)}} className="btn dark_btn">{(dropdownStateOpen)?('Hide'):('Show')} Options</div> }</td>
+                                <td>{ <div className="btn dark_btn">{(dropdownStateOpen)?('Hide'):('Show')} Options</div> }</td>
                             </tr>
                           </tbody>
                       </table>
+                      <Divider />
+                      <Divider />
+                      <Divider />
+                      </Fragment>
                   }
                 //   icon={<Icon>filter_drama</Icon>}
                   node="div"
@@ -78,10 +85,10 @@ function ProductSearchCard({product}) {
                 </table>
                 </CollapsibleItem>
             </Collapsible>
+            <Divider />
+            <Divider />
+            <Divider />
             </div>
-            <Divider />
-            <Divider />
-            <Divider />
         </div>
     ):(null)
 
