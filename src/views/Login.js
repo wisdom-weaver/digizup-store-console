@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 function Login(props) {
     
-    const { authMessage, authError, login, authMessageReset} = props;
+    const { authMessage, authLog, login, authMessageReset} = props;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,8 +15,6 @@ function Login(props) {
     const [passwordBlur, setPasswordBlur] = useState(false);
 
     var [allValid, setAllValid] = useState(false);
-
-    var [authLog,setAuthLog] =  useState('');
 
     const history = useHistory();
 
@@ -31,22 +29,14 @@ function Login(props) {
         passwordValidation();
     },[password]);
     
-    useEffect(()=>{
-        console.log('authMessage',authMessage, authError);
-        if(authMessage == 'LOGIN_SUCCESS'){ 
-            setAuthLog('You are successfully logged in.');
-            setTimeout(()=>{ history.push('/') },3000)
-        }
-        else { setAuthLog(authError) };
-        setTimeout(()=>{
-            authMessageReset();
-        },9000)
-    },[authMessage]);
-
     
-    var renderLog = (authMessage=="AUTH_MESSAGE_RESET" || authMessage == null)?null
-        :(<span className={(authMessage=="LOGIN_SUCCESS")?"success":"error"} >{authLog}</span>);
-
+    useEffect(()=>{
+        // console.log('authMessage',authMessage, authLog);
+        setTimeout(()=>{ authMessageReset() },3000)
+        if(authMessage == 'LOGIN_SUCCESS') 
+            setTimeout(()=>{ history.push('/') }, 3000);
+    },[authLog]);
+    
     const emailValidation = ()=>{
         if(email.length==0){ setInvalid('email', 'enter your email'); return;}
         var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
@@ -81,12 +71,14 @@ function Login(props) {
     const handleSubmit= (e)=>{
         e.preventDefault();
         formValidation();
-        console.log('formvalidation', allValid);
+        // console.log('formvalidation', allValid);
         if(allValid){ 
-            console.log(email, password);
+            // console.log(email, password);
             props.login({email,password});
         }
-        else console.log('form is invalid');
+        else {
+            // console.log('form is invalid');
+        }
     }
 
     return (
@@ -99,7 +91,9 @@ function Login(props) {
                     </div>
                     <div className="card-content">
                     <div className="log center">
-                        {renderLog}
+                        {(authMessage == 'LOGIN_SUCCESS'           )?( <div className="success center">{authLog}</div>):(null) }
+                        {(authMessage == 'LOGIN_ERROR'             )?( <div className="error center">{authLog}</div>):(null) }
+                        {(authMessage == 'LOGOUT_NOT_ADMIN_SUCCESS')?( <div className="error center">{authLog}</div>):(null) }
                     </div>
                         <form onSubmit={handleSubmit}>
                             <div className="input-field email-field">
@@ -127,7 +121,7 @@ function Login(props) {
 
 const mapStateToProps =(state)=>{
     return{
-        authError: state.auth.authError,
+        authLog: state.auth.authLog,
         authMessage: state.auth.authMessage
     }
 
