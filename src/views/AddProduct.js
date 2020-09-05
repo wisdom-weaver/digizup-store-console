@@ -14,24 +14,359 @@ import { reactReduxFirebase } from 'react-redux-firebase'
 
 function AddProduct(props) {
 
-    const [product,setProduct] = useState({});
+    const [product,setProduct] = useState(
+        {
+            "productName": "OnePlus 8",
+            "productOptions": {
+                "option_0_0": {
+                    "productFullName": "OnePlus 8 (Glacial Green 6GB RAM+128GB Storage) ",
+                    "price": 41999,
+                    "images": [
+                        "https://images-na.ssl-images-amazon.com/images/I/619iTNHSCGL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61AAPiIN2NL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61qGR60Ak9L._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/51lxhpLCTzL._SL1500_.jpg"
+                    ],
+                    "inStock": true,
+                    "isActive": true,
+                    "optionTags": [
+                        "8gb",
+                        "oneplus",
+                        "8",
+                        "glacier",
+                        "green",
+                        "128gb"
+                    ]
+                },
+                "option_0_1": {
+                    "productFullName": "",
+                    "price": 0,
+                    "images": [],
+                    "inStock": false,
+                    "isActive": false,
+                    "optionTags": []
+                },
+                "option_0_2": {
+                    "productFullName": "",
+                    "price": 0,
+                    "images": [],
+                    "inStock": false,
+                    "isActive": false,
+                    "optionTags": []
+                },
+                "option_1_0": {
+                    "productFullName": "OnePlus 8 (Glacial Green 8GB RAM+128GB Storage) ",
+                    "price": 44999,
+                    "images": [
+                        "https://images-na.ssl-images-amazon.com/images/I/619iTNHSCGL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61AAPiIN2NL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61qGR60Ak9L._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/51lxhpLCTzL._SL1500_.jpg"
+                    ],
+                    "inStock": true,
+                    "isActive": true,
+                    "optionTags": [
+                        "oneplus",
+                        "8",
+                        "glacier",
+                        "green",
+                        "8gb",
+                        "128gb"
+                    ]
+                },
+                "option_1_1": {
+                    "productFullName": "",
+                    "price": 0,
+                    "images": [],
+                    "inStock": false,
+                    "isActive": false,
+                    "optionTags": []
+                },
+                "option_1_2": {
+                    "productFullName": "OnePlus 8 (Onyx Black 8GB RAM+128GB Storage) ",
+                    "price": 44999,
+                    "images": [
+                        "https://images-na.ssl-images-amazon.com/images/I/61UeA7TUrkL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61L01%2BPAv3L._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/51uJonIzjNL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/5190zDNGu0L._SL1500_.jpg"
+                    ],
+                    "inStock": true,
+                    "isActive": true,
+                    "optionTags": [
+                        "8gb",
+                        "12gb",
+                        "oneplus",
+                        "8",
+                        "onyx",
+                        "black"
+                    ]
+                },
+                "option_2_0": {
+                    "productFullName": "49999",
+                    "price": 0,
+                    "images": [
+                        "https://images-na.ssl-images-amazon.com/images/I/619iTNHSCGL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61AAPiIN2NL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61qGR60Ak9L._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/51lxhpLCTzL._SL1500_.jpg"
+                    ],
+                    "inStock": true,
+                    "isActive": true,
+                    "optionTags": [
+                        "oneplus",
+                        "8",
+                        "glacier",
+                        "green",
+                        "12gb",
+                        "256gb"
+                    ]
+                },
+                "option_2_1": {
+                    "productFullName": "OnePlus 8 (Interstellar Glow 12GB RAM+256GB Storage) ",
+                    "price": 49999,
+                    "images": [
+                        "https://images-na.ssl-images-amazon.com/images/I/61CDmSor1fL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61s6Nh0SmhL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61YzpY9d51L._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61xjucVmZGL._SL1500_.jpg"
+                    ],
+                    "inStock": true,
+                    "isActive": true,
+                    "optionTags": [
+                        "oneplus",
+                        "8",
+                        "12gb",
+                        "256gb",
+                        "interstellar",
+                        "glow"
+                    ]
+                },
+                "option_2_2": {
+                    "productFullName": "OnePlus 8 (Onyx Black 12GB RAM+256GB Storage) ",
+                    "price": 49999,
+                    "images": [
+                        "https://images-na.ssl-images-amazon.com/images/I/61UeA7TUrkL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61L01%2BPAv3L._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/51uJonIzjNL._SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/5190zDNGu0L._SL1500_.jpg"
+                    ],
+                    "inStock": true,
+                    "isActive": true,
+                    "optionTags": [
+                        "oneplus",
+                        "8",
+                        "onyx",
+                        "black",
+                        "12gb",
+                        "256gb"
+                    ]
+                }
+            },
+            "optionCategories": [
+                "Config",
+                "Color"
+            ],
+            "optionCategoriesObject": {
+                "color": [
+                    {
+                        "optionName": "Glacial Green",
+                        "optionFeatures": [
+                            "Available in Glacier Green color"
+                        ],
+                        "optionSpecs": [
+                            {
+                                "specKey": "Color",
+                                "specValue": "Glacial Green"
+                            }
+                        ],
+                        "optionTags": [
+                            ""
+                        ]
+                    },
+                    {
+                        "optionName": "Interstellar Glow",
+                        "optionFeatures": [
+                            "Available in Interstellar Glow color"
+                        ],
+                        "optionSpecs": [
+                            {
+                                "specKey": "Color",
+                                "specValue": "Interstellar Glow"
+                            }
+                        ]
+                    },
+                    {
+                        "optionName": "Onyx Black",
+                        "optionFeatures": [
+                            "Available in Onyx Black color"
+                        ],
+                        "optionSpecs": [
+                            {
+                                "specKey": "Color",
+                                "specValue": "Onyx Black"
+                            }
+                        ]
+                    }
+                ],
+                "config": [
+                    {
+                        "optionName": "6GB RAM+128GB Storage",
+                        "optionFeatures": [
+                            "Has blazing fast 6GB RAM and 128GB Storage"
+                        ],
+                        "optionSpecs": [
+                            {
+                                "specKey": "Ram",
+                                "specValue": "6GB"
+                            },
+                            {
+                                "specKey": "Storage",
+                                "specValue": "128gb"
+                            }
+                        ],
+                        "optionTags": [
+                            ""
+                        ]
+                    },
+                    {
+                        "optionName": "8GB RAM+128GB Storage",
+                        "optionFeatures": [
+                            "Has blazing fast 8GB RAM and 128GB Storage"
+                        ],
+                        "optionSpecs": [
+                            {
+                                "specKey": "Ram",
+                                "specValue": "8GB"
+                            },
+                            {
+                                "specKey": "Storage",
+                                "specValue": "128GB"
+                            }
+                        ]
+                    },
+                    {
+                        "optionName": "12GB RAM+256GB Storage",
+                        "optionFeatures": [
+                            "Has blazing fast 12GB RAM and 128GB Storage"
+                        ],
+                        "optionSpecs": [
+                            {
+                                "specKey": "Ram",
+                                "specValue": "12GB"
+                            },
+                            {
+                                "specKey": "Storage",
+                                "specValue": "256GB"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "hasOptions": true,
+            "categories": [
+                "All",
+                "Mobiles"
+            ],
+            "tags": [
+                "one",
+                "plus",
+                "oneplus",
+                "8",
+                "6gb",
+                "8gb",
+                "12gb",
+                "128gb",
+                "256gb",
+                "5g",
+                "phone",
+                "mobile",
+                "black",
+                "onyx",
+                "glacier",
+                "green",
+                "interstellar",
+                "glow"
+            ],
+            "description": "The all new OnePlus 8 Powered by Qualcomm Snapdragon 865. Supports 5G Technology and comes equipped with 90hz Fliud display, a Rear Triple camera Setup with a capability to shoot 4K video @ 30/60 FPS. ",
+            "specs": [
+                {
+                    "specKey": "OS ",
+                    "specValue": "Android "
+                },
+                {
+                    "specKey": " Product Dimensions ",
+                    "specValue": " 16 x 0.8 x 7.3 cm; 180 Grams "
+                },
+                {
+                    "specKey": " Batteries ",
+                    "specValue": " 1 Lithium ion batteries required. (included) "
+                },
+                {
+                    "specKey": " Wireless communication technologies ",
+                    "specValue": " Bluetooth, WiFi Hotspot "
+                },
+                {
+                    "specKey": " Connectivity technologies ",
+                    "specValue": " GSM, LTE-FDD, NR, (B1/2/4/5/8/9/19), Bluetooth 5.1, support aptX & aptX HD & LDAC & AAC, (B2/4/7/25/66/41/480, WCDMA, (BC0/BC1/BC10), Depending on carrier support, CDMA, (B2/3/5/8), Supports up to DL Cat 20/UL Cat 18(2.0 Gbps /200 Mbps), (B34/38/39/40/41/46/48), 2×2 MIMO, Support 2.4G/5G, Support WiFi 802.11 a/b/g/n/ac/ax, (N2/5/66/71/41), LTE-TDD, 4×4 MIMO, 5G NR, N2(41/660), MIMO, LTE, (B1/2/3/4/5/7/8/12/13/17/18/19/20/25/26/28/29/30/66/71) "
+                },
+                {
+                    "specKey": " Special features ",
+                    "specValue": " Dual SIM, Serial_number, GPS "
+                },
+                {
+                    "specKey": " Other display features ",
+                    "specValue": "Wireless "
+                },
+                {
+                    "specKey": "Resolution",
+                    "specValue": " 2400 x 1080 "
+                },
+                {
+                    "specKey": " Other camera features ",
+                    "specValue": " 48MP+2MP+16MP "
+                },
+                {
+                    "specKey": " Form factor ",
+                    "specValue": " Touchscreen Phone "
+                },
+                {
+                    "specKey": " Battery Power Rating ",
+                    "specValue": " 4300 "
+                },
+                {
+                    "specKey": " Whats in the box ",
+                    "specValue": " Handset, Warp Charge 30 Power Adapter , Warp Type-C Cable (Support USB 2.0), Quick Start Guide, Welcome Letter, Safety Information and Warranty Card, LOGO Sticker, Case, Screen Protector (pre-applied), SIM Tray Ejector "
+                }
+            ],
+            "features": [
+                "48MP rear camera with 4K video at 30/60 fps, 1080P video at 30/60 fps, super slow motion: 720p video at 480 fps, 1080p video at 240fps, time-lapse: 1080P 30fps, 4k 30fps, CINE aspect ratio video recording, ultrashot HDR, nightscape, micro, portrait, pro mode, panorama, cat&dog face detection&focus, AI scene detection, RAW image | 16MP front camera ",
+                "16.637 centimeters (6.55-inch) 90Hz fluid display with 2400 x 1080 pixels resolution, 402 ppi pixel density ",
+                "Oxygen OS based on Android v10 operating system with 2.86GHz of clock speed with Qualcomm Snapdragon 865 powered by Kryo 585 CPU octa core processor, Adreno 650 ",
+                " 4300mAH lithium-ion battery ",
+                "1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase ",
+                "Box also includes: Warp charge 30 power adapter, warp type-c cable (support usb 2.0), quick start guide, welcome letter, safety information and warranty card, logo sticker, case, screen protector (pre-applied), sim tray ejector ",
+                "OnePlus 8 with Alexa Built-in provides hands-free access to Alexa while on-the-go. Say “Alexa” to play music, make calls, ask questions, control smart devices and more using just your voice. Download the Alexa app on your OnePlus 8 to start using Alexa hands-free today. ",
+                "Dual SIM (nano+nano) dual-standby (5G+5G) "
+            ]
+        }
+    );
 
     const [stage, setStage] = useState('init');
     const [rerender, setRerender] = useState(false);
 
-    const [productName, setProductName] = useState('');
-    const [price, setPrice] = useState(0);
-    const [description, setDescription] = useState('');
-    const [features, setFeatures] = useState([]);
-    const [specs, setSpecs] = useState([]);
-    const [categories, setCategories] = useState(['All']);
-    const [tags, setTags] = useState([]);
-    const [hasOptions, setHasOptions] = useState(false);
-    const [inStock, setInStock] = useState(true);
-
-    const [optionCategories, setOptionCategories] = useState([]);
-    const [optionCategoriesObject, setOptionCategoriesObject] = useState({});
-    const [productOptions, setProductOptions] = useState({})
+    const [productName, setProductName]                       = useState( product.productName            ?? ''      );
+    const [price, setPrice]                                   = useState( product.price                  ?? 0       );
+    const [description, setDescription]                       = useState( product.description            ?? ''      );
+    const [features, setFeatures]                             = useState( product.features               ?? []      );
+    const [specs, setSpecs]                                   = useState( product.specs                  ?? []      );
+    const [categories, setCategories]                         = useState( product.categories             ?? ['All'] );
+    const [tags, setTags]                                     = useState( product.tags                   ?? []      );
+    const [hasOptions, setHasOptions]                         = useState( product.hasOptions             ?? false   );
+    const [inStock, setInStock]                               = useState( product.inStock                ?? true    );
+    const [optionCategories, setOptionCategories]             = useState( product.optionCategories       ?? []      );
+    const [optionCategoriesObject, setOptionCategoriesObject] = useState( product.optionCategoriesObject ?? {}      );
+    const [productOptions, setProductOptions]                 = useState( product.productOptions         ?? {}      )
 
     useEffect(()=>{
         console.log('optionCategories=>',optionCategories)
@@ -120,10 +455,24 @@ function AddProduct(props) {
     const getProductJSON = ()=>{
         var pro = {} ;
         if(hasOptions == true){
+            var localProductOptions = productOptions;
+            Object.keys(localProductOptions).forEach((eachOp,index)=>{
+                if(localProductOptions[eachOp].isActive == false){
+                    localProductOptions[eachOp] = {
+                                                      "productFullName": "",
+                                                      "price": 0,
+                                                      "images": [],
+                                                      "inStock": false,
+                                                      "isActive": false,
+                                                      "optionTags": []
+                                                  }
+                }
+            })
             pro={
                 productName,
-                productOptions,
+                productOptions: localProductOptions,
                 optionCategories,
+                optionCategoriesObject,
                 hasOptions, 
                 categories,
                 tags,
@@ -344,10 +693,11 @@ function AddProduct(props) {
             <h5 className="center">hasOptions=> true</h5>
             <div className="col s12 input-field">
                 <input 
-                    onChange={(e)=>{setTempOpCat(e.target.value); setRerender(!rerender)}} 
-                    onKeyDown={(e)=>{ if(e.keyCode==13){
-                         setOptionCategories([...optionCategories, tempOpCat]); setTempOpCat(''); 
-                    } }} 
+                    onChange={(e)=>{setTempOpCat(e.target.value);}} 
+                    onKeyDown={(e)=>{if(e.keyCode==13){
+                        e.preventDefault();
+                        setOptionCategories([...optionCategories, tempOpCat]); setTempOpCat(''); setRerender(!rerender)
+                    }}} 
                     type="text" id='tags-enter' value={tempOpCat} placeholder='Add Option Category'
                 />
             </div>
@@ -364,60 +714,42 @@ function AddProduct(props) {
             ))}
             </div>
             <div className="col s12">
-            <Collapsible
-            style={{
-                'border': 'none',
-                "boxShadow": 'none',
-            }}
-            accordion={false}>
+                <Fragment>
                 {Object.keys(optionCategoriesObject)?.sort().map((opCatOb,index)=>(
-                <CollapsibleItem
-                    key={uuid()}
-                   expanded={false}
-                   header={
-                       <Fragment>
-                           <p className="flow-text head">{index}=>{opCatOb}</p>
-                       </Fragment>
-                   }
-                 //   icon={<Icon>filter_drama</Icon>}
-                   node="div"
-                 >
                  <Fragment>
-                    <Collapsible>
-                    {optionCategoriesObject[opCatOb]?.map((eachElem,elemIndex)=>(
-                    <CollapsibleItem
-                        key={uuid()}
-                        expanded={false}
-                        header={
-                            <Fragment>
-                            <div className="row">
-                            <div className="col s6"><p className="flow-text head heavy_text">{opCatOb}#{elemIndex}=></p></div>
-                            <div className="col s6 right-align">
-                                <div 
-                                onClick={()=>{
-                                    var local = optionCategoriesObject;
-                                    local[opCatOb] = local[opCatOb].filter((filter, filterindex)=> elemIndex!=filterindex);
-                                    setOptionCategoriesObject(local); setRerender(!rerender);
-                                }}
-                                className="btn red_btn no-wrap"> <i className="material-icons">delete</i> {opCatOb}#{elemIndex}</div>
-                            </div>
-                            </div>
-                            </Fragment>
-                        }
-                        node="div"
-                    >
                     <Fragment>
+                        <p className="white flow-text head">{index}=>{opCatOb}</p>
+                    </Fragment>
+                    <Fragment>
+                    {optionCategoriesObject[opCatOb]?.map((eachElem,elemIndex)=>(
+                    <Fragment key={uuid()}>
+                    <Fragment>
+                        <Fragment>
                         <div className="row">
+                        <div className="col s6"><p className="flow-text head heavy_text">{opCatOb}#{elemIndex}=></p></div>
+                        <div className="col s6 right-align">
+                            <div 
+                            onClick={()=>{
+                                var local = optionCategoriesObject;
+                                local[opCatOb] = local[opCatOb].filter((filter, filterindex)=> elemIndex!=filterindex);
+                                setOptionCategoriesObject(local); setRerender(!rerender);
+                            }}
+                            className="btn red_btn no-wrap"> <i className="material-icons">delete</i> {opCatOb}#{elemIndex}</div>
+                        </div>
+                        </div>
+                        </Fragment>
+                        <div className="row">
+
                             <div className="col s4"><p>OptionName: </p></div>
                             <TextInput
                                 id={uuid()}
                                 s={8}
-                                onChange={(e)=>{
+                                onBlur={(e)=>{
                                     var local = optionCategoriesObject;
                                     local[opCatOb][elemIndex].optionName = e.target.value;
                                     setOptionCategoriesObject(local); setRerender(!rerender);
                                 }}
-                                value={eachElem.optionName}
+                                defaultValue={eachElem.optionName}
                             />
                         </div>
                         <p className="head">Options Features</p>
@@ -427,12 +759,12 @@ function AddProduct(props) {
                             <TextInput
                                 id={uuid()}
                                 s={10}
-                                onChange={(e)=>{
+                                onBlur={(e)=>{
                                     var local = optionCategoriesObject;
                                     local[opCatOb][elemIndex].optionFeatures[eachElemFeatureIndex] = e.target.value;
                                     setOptionCategoriesObject(local); setRerender(!rerender);
                                 }}
-                                value={eachElemFeature}
+                                defaultValue={eachElemFeature}
                             />
                             <div className="col s2">
                                 <div 
@@ -463,22 +795,22 @@ function AddProduct(props) {
                             <TextInput
                                 id={uuid()}
                                 s={5}
-                                onChange={(e)=>{
+                                onBlur={(e)=>{
                                     var local = optionCategoriesObject;
                                     local[opCatOb][elemIndex].optionSpecs[eachElemSpecIndex].specKey = e.target.value;
                                     setOptionCategoriesObject(local); setRerender(!rerender);
                                 }}
-                                value={eachElemSpec.specKey}
+                                defaultValue={eachElemSpec.specKey}
                             />
                             <TextInput
                                 id={uuid()}
                                 s={5}
-                                onChange={(e)=>{
+                                onBlur={(e)=>{
                                     var local = optionCategoriesObject;
                                     local[opCatOb][elemIndex].optionSpecs[eachElemSpecIndex].specValue = e.target.value;
                                     setOptionCategoriesObject(local); setRerender(!rerender);
                                 }}
-                                value={eachElemSpec.specValue}
+                                defaultValue={eachElemSpec.specValue}
                             />
                             <div className="col s2">
                                 <div 
@@ -506,7 +838,7 @@ function AddProduct(props) {
                     <Divider />
                     <Divider />
                     </Fragment>
-                    </CollapsibleItem>
+                    </Fragment>
                     ))}
                     <div className="row">
                         <div className="col s6 center">
@@ -539,11 +871,10 @@ function AddProduct(props) {
                     <div className="center">
                         
                     </div>
-                    </Collapsible>
+                    </Fragment>
                  </Fragment>
-                </CollapsibleItem>
                 ))}
-            </Collapsible>
+                </Fragment>
             <div className="center">
                 <div  onClick={()=>{ startProductOptions() }} className="btn dark_btn">
                     Proceed to Product Options
@@ -562,7 +893,7 @@ function AddProduct(props) {
                     <div className="col s12">
                         <table className="white">
                         <tbody>
-                        <tr><th className="head">{productOption}</th>{optionCategories.map((each,index)=>(<th key={uuid()}>{optionCategoriesObject[each][getIndciesFromOptionString(productOption)[index]].optionName}</th>))}</tr>
+                        {/* <tr><th className="head">{productOption}</th>{optionCategories && optionCategories.map((each,index)=>(<th key={uuid()}>{optionCategoriesObject[each][getIndciesFromOptionString(productOption)[index]].optionName}</th>))}</tr> */}
                         </tbody>
                         </table>
                     </div>
@@ -800,11 +1131,11 @@ function AddProduct(props) {
                     }
                     >
                         <div className="row-flex-center flex-wrap">
-                        {Object.keys(formStage).map((each)=>(
+                            {Object.keys(formStage).map((each)=>(
                             (formStage[each].show)
                             ?(<div key={uuid()} className="btn dark_btn" onClick={()=>{setStage(each)}} >{formStage[each].btnTitle}</div>)
                             :(<div key={uuid()} className="btn dark_btn disabled" onClick={()=>{setStage(each)}} >{formStage[each].btnTitle}</div>)
-                        ))}
+                            ))}
                             <a href="/addProduct"><div key={uuid()} className="btn red_btn" onClick={()=>{setProduct({})}} >reset product</div></a>
                         </div>
                     </CollapsibleItem>
