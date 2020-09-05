@@ -31,6 +31,18 @@ body {
           align-items: center;
 }
 
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.flex-grow {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: 100% !important;
+}
+
 .col-flex-center {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -118,11 +130,15 @@ th::selection {
   white-space: nowrap;
 }
 
+.hoverable {
+  cursor: pointer !important;
+}
+
 .light_text {
   font-weight: 300;
 }
 
-.regular_text, .green-chip {
+.regular_text, .green-chip, .green-dark-chip {
   font-weight: 500;
 }
 
@@ -143,7 +159,7 @@ th::selection {
 }
 
 .head {
-  color: #065446;
+  color: #065446 !important;
 }
 
 .primary-green-light-text {
@@ -172,6 +188,18 @@ th::selection {
 
 .trans-blue-text {
   color: #E1E5E9;
+}
+
+.trans-green-bg {
+  background-color: #CDDDDA !important;
+}
+
+.primary-green-dark-bg {
+  background: #065446 !important;
+}
+
+.primary-red-bg {
+  background: #960019 !important;
 }
 
 .light_btn, .login_btn {
@@ -261,7 +289,7 @@ th::selection {
 }
 
 .red_btn, .CartCard .remove_btn, .OrderCard .remove_btn {
-  background-color: #f84b4b !important;
+  background-color: #960019 !important;
   border-radius: 10px !important;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -281,6 +309,11 @@ th::selection {
 
 .green-chip {
   background: #CDDDDA !important;
+  color: #065446;
+}
+
+.green-dark-chip {
+  background: rgba(6, 84, 70, 0.6) !important;
   color: #065446;
 }
 
@@ -446,6 +479,7 @@ input:-webkit-autofill:active {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  padding-top: 5px;
 }
 
 .Navbar .navbar__searchInput {
@@ -689,7 +723,7 @@ input:-webkit-autofill:active {
   }
   .Navbar nav .navbar__searchInput_container {
     position: fixed;
-    top: 65px;
+    top: 55px;
     left: 0;
     width: 100%;
     background: white;
@@ -1375,5 +1409,109 @@ input:-webkit-autofill:active {
 .searchbar_container .searchInput:focus-within {
   -webkit-box-shadow: inset 0px 0px 5px 2px #20927F;
           box-shadow: inset 0px 0px 5px 2px #20927F;
+}
+
+.small-font {
+  font-size: 10px !important;
+}
+
+.small-table {
+  font-size: 10px !important;
+  overflow: auto;
+}
+
+.small-table span, .small-table .btn, .small-table p, .small-table label {
+  font-size: 10px !important;
+}
+
+.small-table .material-icons {
+  font-size: 20px !important;
+}
+
+.headPlaceholder::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #065446 !important;
+  opacity: 1 !important;
+}
+
+.headPlaceholder:-ms-input-placeholder {
+  /* WebKit browsers */
+  color: #065446 !important;
+  opacity: 1 !important;
+}
+
+.headPlaceholder::-ms-input-placeholder {
+  /* WebKit browsers */
+  color: #065446 !important;
+  opacity: 1 !important;
+}
+
+.headPlaceholder::placeholder {
+  /* WebKit browsers */
+  color: #065446 !important;
+  opacity: 1 !important;
+}
+
+.regularPlaceholder::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: black !important;
+  opacity: 1 !important;
+}
+
+.regularPlaceholder:-ms-input-placeholder {
+  /* WebKit browsers */
+  color: black !important;
+  opacity: 1 !important;
+}
+
+.regularPlaceholder::-ms-input-placeholder {
+  /* WebKit browsers */
+  color: black !important;
+  opacity: 1 !important;
+}
+
+.regularPlaceholder::placeholder {
+  /* WebKit browsers */
+  color: black !important;
+  opacity: 1 !important;
+}
+
+.log {
+  position: relative;
+  width: 100%;
+  min-height: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.log .success {
+  background-color: #CDDDDA;
+  color: #065446;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  border-radius: 20px;
+  padding: 5px 10px;
+  -webkit-animation: animateLog 5s forwards;
+          animation: animateLog 5s forwards;
+  white-space: pre-wrap;
+}
+
+.log .error {
+  background-color: rgba(255, 0, 0, 0.3);
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  color: red;
+  border-radius: 20px;
+  padding: 5px 10px;
+  -webkit-animation: animateLog 5s forwards;
+          animation: animateLog 5s forwards;
+  white-space: pre-wrap;
+  font-size: 10px;
 }
 /*# sourceMappingURL=index.css.map */

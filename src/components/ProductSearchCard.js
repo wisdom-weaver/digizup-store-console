@@ -7,37 +7,35 @@ import { compose } from 'redux';
 import 'materialize-css';
 import { Divider, Collapsible, CollapsibleItem } from 'react-materialize'
 import { useState } from 'react';
+import { updateProductInstock } from '../store/actions/productAction';
+import { connect } from 'react-redux';
 
-function ProductSearchCard({product}) {
+function ProductSearchCard({product, updateProductInstock}) {
     const optionsKeys = Object.keys(product).filter(each=>each.startsWith('option_')).sort() ?? [];
     const optionCategories  = product?.optionCategories ?? [];
     const op_indexes = (option) => option.split('_').slice(1).map(each=>parseInt(each))
-    const [dropdownStateOpen, setDropDownStateOpen ] = useState(false);
     const ProductCardWithOptionsJSX = (product && product.hasOptions==true && optionsKeys)?(
         <div className="col s12" key={uuid()}> 
             <div className="card round-card">
             <Collapsible
                 style={{
                     'border': 'none',
-                    "box-shadow": 'none',
+                    "boxShadow": 'none',
                 }}
                 accordion={false}>
                <CollapsibleItem
-                  expanded={false}
-                //   onClick={()=>{setDropDownStateOpen(!dropdownStateOpen)}}
+                  expanded={true}
                   header={
                       <Fragment>
                       <table 
-                        // onClick={()=>{setDropDownStateOpen(true)}} 
-                        className="white">
+                        className="small-table">
                           <tbody>
                             <tr key={uuid()}>
                                 <th>{product.id}</th>
                             </tr>
                             <tr>
-                                <td>Product Name: <NavLink to={`/product/${product.id}`} > <span className="text-link heavy_text">{product.productName}</span></NavLink></td>
-                                <td className="no-wrap valign-wrapper" >hasOptions:{(product.hasOptions?(<Icon className="primary-green-dark-text" >done_all</Icon>):(<Icon className="primary-red-text" >close</Icon>))}</td>                    
-                                <td>{ <div className="btn dark_btn">{(dropdownStateOpen)?('Hide'):('Show')} Options</div> }</td>
+                                <td>Product Name:  <span className="text-link heavy_text">{product.productName}</span></td>
+                                <td className="no-wrap valign-wrapper" >hasOptions:{(product.hasOptions?(<Icon className="primary-green-dark-text" >done_all</Icon>):(<Icon className="primary-red-text" >close</Icon>))}</td>
                             </tr>
                           </tbody>
                       </table>
@@ -49,16 +47,16 @@ function ProductSearchCard({product}) {
                 //   icon={<Icon>filter_drama</Icon>}
                   node="div"
                 >
-                <table>
-                <tbody>
                         {optionsKeys.map(optionk=>(
                         <Fragment key={uuid()}>
-                        <tr>
-                            <td>OptionName: 
+                        <p className="white small-font" >
+                            OptionName: 
                                 <NavLink to={`/product/${product.id}/?productOption=${optionk}`} > <span className="text-link heavy_text">{product[optionk].productFullName}</span></NavLink>
-                            </td>
-                        </tr>
-                        <tr>
+                            
+                        </p>
+                        <table className="small-table" >
+                        <tbody>
+                        <tr className="white" >
                             <td>Option id: {optionk}</td>
                             <td>
                                 {op_indexes(optionk).map((each,index)=>
@@ -69,7 +67,9 @@ function ProductSearchCard({product}) {
                             </td>
                             <td>
                                 <p>
-                                <label>
+                                <label onClick={()=>{
+                                    updateProductInstock(product.id, product.hasOptions, optionk, !product[optionk].inStock )
+                                }} >
                                     <input name={`${product.id}-${optionk}-inStockRadio`} readOnly={true} type="radio" checked={product[optionk].inStock == true} />
                                     <span>{(product[optionk].inStock)?(<Fragment><span className="left-align primary-green-dark-text"><Icon>done_all</Icon>In Stock</span></Fragment>
                                                                     ):(<Fragment><span className="left-align primary-red-text"       ><Icon>close</Icon>Out of Stock</span></Fragment>)}
@@ -77,12 +77,13 @@ function ProductSearchCard({product}) {
                                 </label>
                                 </p>
                             </td>
-                        <tr><Divider /></tr>
                         </tr>
+                        </tbody>
+                        </table>
+                        <p> <Divider /> </p>
                         </Fragment>
                         ))}
-                </tbody>
-                </table>
+                
                 </CollapsibleItem>
             </Collapsible>
             <Divider />
@@ -96,13 +97,15 @@ function ProductSearchCard({product}) {
         <div className="col s12" key={uuid()}> 
         <div className="card round-card">
         <div className="card-content">
-            <table>
+        <table className="small-table" >
             <tbody>
                 <tr key={uuid()}>
                     <th>{product.id}</th>
                     <td className="no-wrap valign-wrapper" >hasOptions:{(product.hasOptions?(<Icon className="primary-green-dark-text" >done_all</Icon>):(<Icon className="primary-red-text" >close</Icon>))}</td>
                     <td>
-                        <label>
+                        <label onClick={()=>{
+                            updateProductInstock(product.id, product.hasOptions, null, !product.inStock )
+                        }} >
                             <input type="radio" name={`${product.id}+-inStockRadio`} id={`${product.id}+-inStockRadio`} readOnly={true} checked={product.inStock == true} />
                             <span>{(product.inStock)?(<Fragment><span className="left-align primary-green-dark-text"><Icon>done_all</Icon>In Stock</span></Fragment>
                                                    ):(<Fragment><span className="left-align primary-red-text"       ><Icon>close</Icon>Out of Stock</span></Fragment>)}
@@ -110,11 +113,9 @@ function ProductSearchCard({product}) {
                         </label>
                     </td>
                 </tr>
-                <tr>
-                    <td>Product Name: <NavLink to={`/product/${product.id}`} > <span className="text-link">{product.productName}</span></NavLink></td>
-                </tr>
             </tbody>
             </table>
+            <p className="small-font">Product Name: <NavLink to={`/product/${product.id}`} > <span className="text-link">{product.productName}</span></NavLink></p>
             <Divider />
             <Divider />
             <Divider />
@@ -135,6 +136,16 @@ function ProductSearchCard({product}) {
     )
 }
 
+const mapStateToProps = (state)=>{
+    return {}
+}
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        updateProductInstock: (productid, hasOptions, option ,inStock)=>{ dispatch( updateProductInstock(productid, hasOptions, option ,inStock) ) }
+    }
+}
+
 export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
     withRouter
 )(ProductSearchCard)

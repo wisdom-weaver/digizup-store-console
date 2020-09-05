@@ -32,6 +32,13 @@ body{
     justify-content: center;
     align-items: center;
 }
+.flex-wrap{
+    flex-wrap: wrap;
+}
+.flex-grow{
+    flex-grow: 1;
+    width: 100% !important;
+}
 .col-flex-center{
     display: flex;
     flex-direction: column;
@@ -82,6 +89,9 @@ th::selection
 .no-wrap{
     white-space: nowrap;
 }
+.hoverable{
+    cursor: pointer !important;
+}
 
 .light_text{ font-weight: 300; }
 .regular_text{ font-weight: 500; }
@@ -90,7 +100,7 @@ th::selection
 .bg-color-text {color: $bg-color; }
 .primary-green-dark-text {color: $primary-green-dark; }
 .primary-red-text {color: $primary-red; }
-.head {color: $primary-green-dark; }
+.head {color: $primary-green-dark !important; }
 .primary-green-light-text {color: $primary-green-light; }
 .primary-blue-text {color: $primary-blue; }
 .primary-creme-light-text {color: $primary-creme-light; }
@@ -98,6 +108,10 @@ th::selection
 .trans-green-text {color: $trans-green; }
 .trans-creme-text {color: $trans-creme; }
 .trans-blue-text {color: $trans-blue; }
+
+.trans-green-bg {background-color: $trans-green !important; }
+.primary-green-dark-bg {background: $primary-green-dark !important; }
+.primary-red-bg {background: $primary-red !important; }
 
 .light_btn{
     background-color: $trans-green !important;
@@ -156,7 +170,7 @@ th::selection
 }
 
 .red_btn{
-    background-color: rgb(248, 75, 75) !important;
+    background-color: $primary-red !important;
     border-radius: 10px !important;
     box-shadow: none;
     text-transform: inherit;
@@ -180,6 +194,12 @@ th::selection
 
 .green-chip{
     background: $trans-green !important;
+    color: $primary-green-dark;
+    @extend .regular_text;
+}
+
+.green-dark-chip{
+    background: rgba($primary-green-dark,0.6) !important;
     color: $primary-green-dark;
     @extend .regular_text;
 }
@@ -311,6 +331,7 @@ input:-webkit-autofill:active {
 
     .navbar__searchInput_container{
         flex-grow: 1;
+        padding-top: 5px;
     }
     .navbar__searchInput{
         margin: 10px 0px;
@@ -488,7 +509,7 @@ input:-webkit-autofill:active {
     }
     .Navbar nav .navbar__searchInput_container{
         position: fixed;
-        top: 65px;
+        top: 55px;
         left: 0;
         width: 100%;
         background: white;
@@ -980,4 +1001,54 @@ input:-webkit-autofill:active {
             box-shadow: inset 0px 0px 5px 2px $primary-green-light;
         }
     }
+}
+.small-font{
+    font-size: 10px !important;;
+}
+.small-table{
+    font-size: 10px !important;;
+    span, .btn, p, label{
+        font-size: 10px !important;;
+    }
+    .material-icons{
+        font-size: 20px !important;
+    }
+    overflow: auto;
+}
+
+.headPlaceholder::placeholder { /* WebKit browsers */
+    color: $primary-green-dark !important;
+    opacity: 1 !important;
+}
+.regularPlaceholder::placeholder { /* WebKit browsers */
+    color: black !important;
+    opacity: 1 !important;
+}
+
+
+.log{
+    position: relative;
+    width: 100%;
+    min-height: 20px;
+    display: flex;
+    justify-content: center;
+}
+.log .success{
+    background-color: $trans-green;
+    color: $primary-green-dark;
+    width: max-content;
+    border-radius: 20px;
+    padding: 5px 10px;
+    animation: animateLog 5s forwards;
+    white-space: pre-wrap;
+}
+.log .error{
+    background-color: rgba($color: red, $alpha: 0.3);
+    width: max-content;
+    color: red;
+    border-radius: 20px;
+    padding: 5px 10px;
+    animation: animateLog 5s forwards;
+    white-space: pre-wrap;
+    font-size: 10px;
 }

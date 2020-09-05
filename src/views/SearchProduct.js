@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import { useFirestoreConnect } from 'react-redux-firebase';
-import { useSelector } from 'react-redux';
+import { useSelector, connect } from 'react-redux';
 import { useEffect } from 'react';
 // import 'materilize-css'
 import { TextInput, Icon } from 'react-materialize'

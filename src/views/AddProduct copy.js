@@ -8,9 +8,8 @@ import { compose } from 'redux'
 import 'materialize-css';
 import { TextInput, Chip, Divider, Collapsible, CollapsibleItem } from 'react-materialize'
 import {v1 as uuid } from 'uuid';
-import { addProductAction, productUpdateReset } from '../store/actions/productAction'
 import { connect } from 'react-redux'
-import { reactReduxFirebase } from 'react-redux-firebase'
+import { addProductAction, productUpdateReset } from '../store/actions/productAction'
 
 function AddProduct(props) {
 
@@ -19,18 +18,71 @@ function AddProduct(props) {
     const [stage, setStage] = useState('init');
     const [rerender, setRerender] = useState(false);
 
-    const [productName, setProductName] = useState('');
+    const [productName, setProductName] = useState('OnePlus 7');
     const [price, setPrice] = useState(0);
-    const [description, setDescription] = useState('');
-    const [features, setFeatures] = useState([]);
-    const [specs, setSpecs] = useState([]);
+    const [description, setDescription] = useState('This is the blazing \n fast onplus 7');
+    const [features, setFeatures] = useState(['Blazing Fast', 'Very Awesome']);
+    const [specs, setSpecs] = useState([
+        {specKey: 'Speed', specValue: 'Blazing Fast'},
+        {specKey: 'Looks', specValue: 'Very Awesome'},
+    ]);
     const [categories, setCategories] = useState(['All']);
     const [tags, setTags] = useState([]);
-    const [hasOptions, setHasOptions] = useState(false);
+    const [hasOptions, setHasOptions] = useState(true);
     const [inStock, setInStock] = useState(true);
 
-    const [optionCategories, setOptionCategories] = useState([]);
-    const [optionCategoriesObject, setOptionCategoriesObject] = useState({});
+    const [optionCategories, setOptionCategories] = useState(['color','config']);
+    const [optionCategoriesObject, setOptionCategoriesObject] = useState({
+        color:[
+            { 
+                optionName: 'Glacier Green', 
+                optionFeatures:['this is in green color'],
+                optionSpecs: [
+                    {specKey:'Color', specValue:'Green'}
+                ] 
+            },
+            { 
+                optionName: 'Interstellat Glow', 
+                optionFeatures:['this is in interstellar glow white color'],
+                optionSpecs: [
+                    {specKey:'Color', specValue:'Black'}
+                ]
+            },
+            { 
+                optionName: 'Onyx Black', 
+                optionFeatures:['this is in Onyx black color'],
+                optionSpecs: [
+                    {specKey:'Color', specValue:'Onyx Black'}
+                ]
+            }
+        ],
+        config:[
+            { 
+                optionName: '6GB Ram+128GB Storage', 
+                optionFeatures:['has 6GB Ram', 'has 128GB Storage'],
+                optionSpecs: [
+                    {specKey:'Ram', specValue:'6GB'},
+                    {specKey:'Storage', specValue:'128GB'}
+                ] 
+            },
+            { 
+                optionName: '8GB Ram+128GB Storage', 
+                optionFeatures:['has 8GB Ram', 'has 128GB Storage'],
+                optionSpecs: [
+                    {specKey:'Ram', specValue:'8GB'},
+                    {specKey:'Storage', specValue:'128GB'}
+                ] 
+            },
+            { 
+                optionName: '12GB Ram+256GB Storage', 
+                optionFeatures:['has 12GB Ram', 'has 256GB Storage'],
+                optionSpecs: [
+                    {specKey:'Ram', specValue:'12GB'},
+                    {specKey:'Storage', specValue:'256GB'}
+                ] 
+            }
+        ]
+    });
     const [productOptions, setProductOptions] = useState({})
 
     useEffect(()=>{
@@ -49,6 +101,14 @@ function AddProduct(props) {
         })
         setRerender(!rerender);
     },[optionCategories])
+    useEffect(()=>{
+        if(!optionCategoriesObject) return;
+        console.log('optionCategoriesObject=>',optionCategoriesObject);
+    },[optionCategoriesObject])
+    useEffect(()=>{
+        if(!features) return;
+        console.log('features=>',features);
+    },[features])
 
     const [tempCat,setTempCat] = useState('');
     const [tempTag,setTempTag] = useState('');
@@ -57,7 +117,7 @@ function AddProduct(props) {
     const Con = (arA,arB)=>{
         // console.log('in Con',arA,arB)
         var arC = [];
-        if(!arB || !arA) return;
+        if(arB == []) return arA;
         arA.forEach(eachA=>{
             arB.forEach(eachB=>{
                 if(eachB?.length> 1){
@@ -95,7 +155,6 @@ function AddProduct(props) {
     const getIndciesFromOptionString = (string) => string.split('_').splice(1);
 
     const startProductOptions = ()=>{
-        if(!optionCategories || optionCategories== [] || optionCategories.length<=0)  return;
         var catlen = optionCategories.map((each)=>optionCategoriesObject[each].length);
         console.log(catlen)
         var optionIndexArr = getOptionsIndexAr(catlen);
@@ -106,7 +165,7 @@ function AddProduct(props) {
             if(!Object.keys(productOptions).includes(each)){
                 localProductOptions[each] = {
                     productFullName: '',
-                    price: 0,
+                    price: '',
                     images: [''],
                     inStock: true,
                     isActive: true,
@@ -146,17 +205,11 @@ function AddProduct(props) {
         }
         setProduct(pro);
     }
-
-    const {addProductAction, productUpdateReset, productMessage, productError, productLog} = props;
-    useEffect(()=>{
-        setTimeout(()=>{
-            productUpdateReset()
-        },7000)
-    },[productMessage])
+    // const {productAddAction ,productMessage ,productError ,productLog, productUpdateReset} = props;
+    
     const submitProduct = ()=>{
-        addProductAction(product);
+        // productAddAction(product);
     }
-
     const initForm = (
         <form className="row">
             <div className="col s12 productName-field">
@@ -354,7 +407,6 @@ function AddProduct(props) {
             <div className="col s12">
             {optionCategories.map((opCat,index)=>(
                 <Chip
-                key={uuid()}
                 close={false}
                 options={null}
                 className="green-dark-chip hoverable"
@@ -372,7 +424,6 @@ function AddProduct(props) {
             accordion={false}>
                 {Object.keys(optionCategoriesObject)?.sort().map((opCatOb,index)=>(
                 <CollapsibleItem
-                    key={uuid()}
                    expanded={false}
                    header={
                        <Fragment>
@@ -386,7 +437,6 @@ function AddProduct(props) {
                     <Collapsible>
                     {optionCategoriesObject[opCatOb]?.map((eachElem,elemIndex)=>(
                     <CollapsibleItem
-                        key={uuid()}
                         expanded={false}
                         header={
                             <Fragment>
@@ -423,7 +473,7 @@ function AddProduct(props) {
                         <p className="head">Options Features</p>
                         <div className="row">
                         {eachElem.optionFeatures?.map((eachElemFeature,eachElemFeatureIndex)=>(
-                            <Fragment key={uuid()}>
+                            <Fragment>
                             <TextInput
                                 id={uuid()}
                                 s={10}
@@ -459,7 +509,7 @@ function AddProduct(props) {
                         <p className="head">OptionSpecs</p>
                         <div className="row">
                         {eachElem.optionSpecs?.map((eachElemSpec,eachElemSpecIndex)=>(
-                            <Fragment key={uuid()}>
+                            <Fragment>
                             <TextInput
                                 id={uuid()}
                                 s={5}
@@ -557,13 +607,11 @@ function AddProduct(props) {
         <Fragment>
         {Object.keys(productOptions).map((productOption,index)=>(
             
-                <Fragment key={uuid()}>
+                <Fragment>
                 <div className="row">
                     <div className="col s12">
                         <table className="white">
-                        <tbody>
                         <tr><th className="head">{productOption}</th>{optionCategories.map((each,index)=>(<th key={uuid()}>{optionCategoriesObject[each][getIndciesFromOptionString(productOption)[index]].optionName}</th>))}</tr>
-                        </tbody>
                         </table>
                     </div>
                     <div className="col s6">
@@ -625,13 +673,12 @@ function AddProduct(props) {
                         <TextInput
                             id={uuid()}
                             s={8}
-                            type='number'
                             onBlur={(e)=>{
                                 var local = productOptions;
-                                local[productOption].price = parseFloat(e.target.value);
+                                local[productOption].productPrice = parseFloat(e.target.value);
                                 setProductOptions(local); setRerender(!rerender);
                             }}
-                            defaultValue={productOptions[productOption].price}
+                            defaultValue={productOptions[productOption].productPrice}
                         />
                         {(productOptions[productOption].images && productOptions[productOption].images.length> 0)?(
                             <Fragment>
@@ -661,11 +708,12 @@ function AddProduct(props) {
                                 </div>
                             </Fragment>
                             ))}
+
                             </Fragment>
                         ):(
                             <p className="head center heavy_text">No images right now</p>
                         )}
-                            <div className="col s12 center">
+                            <div className="center">
                                 <div 
                                 onClick={()=>{
                                     var local = productOptions;
@@ -674,32 +722,6 @@ function AddProduct(props) {
                                 }}
                                 className="btn-floating primary-green-dark-bg"><i className="material-icons">add</i></div>
                             </div>
-                            <div className="col s4">Option tags</div>
-                            {(productOptions[productOption].optionTags.map(((tag,tagindex)=>(
-                                <Chip
-                                key={uuid()}
-                                close={false}
-                                options={null}
-                                onClick={()=>{ 
-                                    var local = productOptions;
-                                    local[productOption].optionTags = local[productOption].optionTags.filter((each,eachIndex)=>eachIndex!=tagindex);
-                                    setProductOptions(local); setRerender(!rerender);
-                                }}
-                                className="green-dark-chip hoverable"
-                                >
-                                <p>{tag}</p>
-                              </Chip>
-                            ))))}
-                            <TextInput
-                                id={uuid()}
-                                s={12}
-                                onKeyDown={(e)=>{if(e.keyCode == 13){
-                                    var local = productOptions;
-                                    local[productOption].optionTags = [ ...local[productOption].optionTags , ...e.target.value.trim().split(' ') ];
-                                    setProductOptions(local); setRerender(!rerender);
-                                }}}
-                                defaultValue={''}
-                            />
                         </Fragment>
                     ):(null)}
 
@@ -721,7 +743,6 @@ function AddProduct(props) {
             <TextInput
                 id={uuid()}
                 s={6}
-                type='number'
                 label={'Product Price'}
                 onChange={(e)=>{ setPrice(parseFloat(e.target.value)) }}
                 value={price}
@@ -742,7 +763,7 @@ function AddProduct(props) {
             </div>
             <div className="col s12 center">
             <div
-            onClick={()=>{ setStage('addDescription') }}
+            onClick={()=>{ setStage('addFeatures') }}
             className="btn dark_btn">
                 Next
             </div>
@@ -756,60 +777,50 @@ function AddProduct(props) {
                 {JSON.stringify(product,null,4)}
 
             </p>
-
             <div className="row">
-                <div className="s12 center">
-                    <p className="log center">
-                        <span className={(productMessage=='PRODUCT_ADD_ERROR')?("error"):("success")}>{productLog}</span>
-                    </p>
+                <div className="col s6 center">
+                    <div  onClick={setStage('init')} className="btn light_btn"><i className="material-icons">edit</i> Start</div>
                 </div>
                 <div className="col s6 center">
-                    <div onClick={()=>{setStage('init')}} className="btn light_btn">
-                        <i className="material-icons">edit</i> Start
-                    </div>
-                </div>
-                <div className="col s6 center">
-                    {(productMessage == 'PRODUCT_UPDATE_RESET')?(<div className="btn dark_btn" onClick={submitProduct} ><i className="material-icons">add</i> Upload Product</div>):('')}
-                    {(productMessage == 'PRODUCT_ADD_IN_PROGRESS')?(<div className="btn dark_btn"> Uploading....</div>):('')}
-                    {(productMessage == 'PRODUCT_ADD_ERROR')?(<div className="btn red_btn" onClick={submitProduct} > Failed! <i  className="material-icons">replay</i> Retry</div>):('')}
-                    {(productMessage == 'PRODUCT_ADD_SUCCESS')?(<div className="btn dark_btn"><i  className="material-icons">done_all</i>Uploaded</div>):('')}
+                    {()=>{
+                        switch(productMessage){
+                            case 'PRODUCT_ADD_IN_PROGRESS': 
+                                return (<div className="btn dark_btn disabled"> <i className="material-icons">rotate_left</i> Uploading Product </div>);
+                            case 'PRODUCT_ADD_SUCCESS': 
+                                return (<div className="btn dark_btn"> <i className="material-icons">done_all</i> Uploaded Product </div>);
+                            case 'PRODUCT_ADD_ERROR': 
+                                return (<div onClick ={submitProduct} className="btn red_btn"> <i className="material-icons">add</i> Failed=> <i className="material-icons">refresh</i>Retry </div>);
+                            case 'PRODUCT_UPDATE_RESET' :
+                                return (<div onClick ={submitProduct} className="btn dark_btn"> <i className="material-icons">add</i> Upload Product </div>);
+                            default: return (<div onClick ={submitProduct} className="btn dark_btn"> <i className="material-icons">add</i> Upload Product </div>);
+                        }
+                    }}
                 </div>
             </div>
         </div>
     )
     const formStage = {
-        'init'                 :  {form: initForm                 ,show: true                , btnTitle:'Home' },
-        'hasOptions'           :  {form: hasOptionsForm           ,show: (hasOptions==true ) , btnTitle:'Has Options' },
-        'productOptions'       :  {form: productOptionsForm       ,show: (hasOptions==true ) , btnTitle:'Product Options' },
-        'doesnotHasOptions'    :  {form: doesnotHasOptionsForm    ,show: (hasOptions==false) , btnTitle:'No Options' },
-        'addDescription'       :  {form: descriptionForm          ,show: true                , btnTitle:'Description' },
-        'addFeatures'          :  {form: addFeaturesForm          ,show: true                , btnTitle:'Features' },
-        'addSpecs'             :  {form: addSpecsForm             ,show: true                , btnTitle:'Specifications' },
-        'addCategoriesAndTags' :  {form: addCategoriesAndTagsForm ,show: true                , btnTitle:'Categories and Tags' },
-        'productJSON'          :  {form: productJSON              ,show: true                , btnTitle:'Product Upload' }
+        'init': initForm,
+        'hasOptions': hasOptionsForm,
+        'doesnotHasOptions': doesnotHasOptionsForm,
+        'addDescription': descriptionForm,
+        'addFeatures': addFeaturesForm,
+        'addSpecs': addSpecsForm,
+        'addCategoriesAndTags': addCategoriesAndTagsForm,
+        'productOptions': productOptionsForm,
+        'productJSON': productJSON
     }
 
     return (
         <div className="AddProduct Page" >
             <div className="container">
                 <h4 className="center head">Add <span className=" heavy_text">Product</span></h4>
-                <Collapsible>
-                    <CollapsibleItem
-                    header={
-                        <p className="center head heavy_text"> Navigation </p>
-                    }
-                    >
-                        <div className="row-flex-center flex-wrap">
-                        {Object.keys(formStage).map((each)=>(
-                            (formStage[each].show)
-                            ?(<div key={uuid()} className="btn dark_btn" onClick={()=>{setStage(each)}} >{formStage[each].btnTitle}</div>)
-                            :(<div key={uuid()} className="btn dark_btn disabled" onClick={()=>{setStage(each)}} >{formStage[each].btnTitle}</div>)
-                        ))}
-                            <a href="/addProduct"><div key={uuid()} className="btn red_btn" onClick={()=>{setProduct({})}} >reset product</div></a>
-                        </div>
-                    </CollapsibleItem>
-                </Collapsible>
-                { formStage[stage].form }
+                <div className="row-flex-center flex-wrap">
+                {Object.keys(formStage).map((each)=>(
+                    <div key={uuid()} className="btn dark_btn" onClick={()=>{setStage(each)}} >{each}</div>
+                ))}
+                </div>
+                { formStage[stage] }
             </div>
         </div>
     )
@@ -819,18 +830,18 @@ const mapStateToProps = (state)=>{
     return {
         productMessage  : state.productUpdates.productMessage,
         productError    : state.productUpdates.productError,
-        productLog      : state.productUpdates.productLog,
+        productLog      : state.productUpdates.productLog
     }
 }
 
 const mapDispatchToProps = (dispatch)=>{
-    return{
-        addProductAction: (product)=>{dispatch(addProductAction(product))},
-        productUpdateReset: ()=>{ dispatch(productUpdateReset()) }
+    return {
+        productAddAction: (product)=>{ dispatch( addProductAction(product) ) },
+        productUpdateReset: ()=>{ dispatch( productUpdateReset() ) }
     }
 }
 
 export default compose(
-    withRouter,
-    connect(mapStateToProps, mapDispatchToProps)
+    // connect(mapStateToProps, mapDispatchToProps),
+    withRouter
 )(AddProduct)
