@@ -8,82 +8,141 @@ import { compose } from 'redux'
 import 'materialize-css';
 import { TextInput, Chip, Divider, Collapsible, CollapsibleItem } from 'react-materialize'
 import {v1 as uuid } from 'uuid';
-import { connect } from 'react-redux'
 import { addProductAction, productUpdateReset } from '../store/actions/productAction'
+import { connect } from 'react-redux'
+import { reactReduxFirebase } from 'react-redux-firebase'
 
 function AddProduct(props) {
 
-    const [product,setProduct] = useState({});
+    const [product,setProduct] = useState({
+        "productName": "Samsung 32 Inch UHD Sleek Curved Monitor with Three Side Bezel Less & 1 Billion Colors - LU32R590CWWXXL ",
+        "price": 49254,
+        "inStock": true,
+        "hasOptions": false,
+        "categories": [
+            "All",
+            "Computers and Peripherals"
+        ],
+        "tags": [
+            "samsung",
+            "32",
+            "inch",
+            "uhd",
+            "sleek",
+            "curved",
+            "monitor",
+            "three",
+            "side",
+            "bezel",
+            "less",
+            "1",
+            "billion",
+            "colors",
+            "lu32r590cwwxxl"
+        ],
+        "images": [
+            "https://images-na.ssl-images-amazon.com/images/I/81ncZ64JDCL._SL1500_.jpg",
+            "https://images-na.ssl-images-amazon.com/images/I/913Ik7i81mL._SL1500_.jpg",
+            "https://images-na.ssl-images-amazon.com/images/I/81xzyRiBkLL._SL1500_.jpg",
+            "https://images-na.ssl-images-amazon.com/images/I/61VIZx7Iv0L._SL1500_.jpg",
+            "https://images-na.ssl-images-amazon.com/images/I/71J9BnjkJ1L._SL1500_.jpg"
+        ],
+        "description": "Samsung’s 1500R screen is deeply curved to involve you more fully in the action. And with life-like 4K UHD image resolution and the superior quality Samsung panel, you’ll enjoy a viewing experience that’s more realistic than ever. ",
+        "specs": [
+            {
+                "specKey": " Brand ",
+                "specValue": " Samsung "
+            },
+            {
+                "specKey": "Manufacturer ",
+                "specValue": " SAMSUNG INDIA ELECTRONICS PRIVATE LIMITED "
+            },
+            {
+                "specKey": "Model",
+                "specValue": " LU32R590CWWXXL "
+            },
+            {
+                "specKey": " Model Year ",
+                "specValue": "2019"
+            },
+            {
+                "specKey": " Product Dimensions ",
+                "specValue": " 23.8 x 71.3 x 51.5 cm; 4.8 Kilograms "
+            },
+            {
+                "specKey": " Resolution ",
+                "specValue": "4K  (3840x2160 Pixels) "
+            },
+            {
+                "specKey": " Mounting Hardware ",
+                "specValue": " Monitor, Power cable, HDMI Cable, Quick Setup Guide "
+            },
+            {
+                "specKey": " Display Technology ",
+                "specValue": "LED"
+            },
+            {
+                "specKey": " Standing screen display size ",
+                "specValue": " 31.5 Inches "
+            },
+            {
+                "specKey": " Image Aspect Ratio ",
+                "specValue": " Image Aspect Ratio "
+            },
+            {
+                "specKey": " Image Contrast Ratio ",
+                "specValue": " 2500:01 (Typ) "
+            },
+            {
+                "specKey": " Power Source ",
+                "specValue": "AC "
+            },
+            {
+                "specKey": " Batteries Included ",
+                "specValue": " No "
+            },
+            {
+                "specKey": " Batteries Required ",
+                "specValue": " No "
+            },
+            {
+                "specKey": " Refresh Rate ",
+                "specValue": " 60 hertz "
+            },
+            {
+                "specKey": " Supports Bluetooth Technology ",
+                "specValue": "No "
+            },
+            {
+                "specKey": " Imported By ",
+                "specValue": " Samsung India Electronics Pvt. Ltd., 6th Floor, DLF Centre, Sansad Marg, New Delhi - 110001 "
+            }
+        ],
+        "features": [
+            "Curved 32\" UHD (4k) Monitor with complete immersion in true detail with 1500 R ",
+            " Incrediby vibrant and darker blacks with 1 billion colors & 2500:1 contrast ratio, Refresh Rate: 60 Hz, Response Time: 4(GTG) ms ",
+            " UHD upscaling technology includes signal analysis and detail enhancement that seamlessly upconverts SD, HD and Full HD content to near UHD-level picture quality ",
+            " Picture-by-Picture (PBP) - connect two different devices to the monitor and view input from both simultaneously side-by-side ",
+            " Sleek and stylish, fabric-textured rear casing and three-sided bezeless screen "
+        ]
+    });
 
     const [stage, setStage] = useState('init');
     const [rerender, setRerender] = useState(false);
 
-    const [productName, setProductName] = useState('OnePlus 7');
-    const [price, setPrice] = useState(0);
-    const [description, setDescription] = useState('This is the blazing \n fast onplus 7');
-    const [features, setFeatures] = useState(['Blazing Fast', 'Very Awesome']);
-    const [specs, setSpecs] = useState([
-        {specKey: 'Speed', specValue: 'Blazing Fast'},
-        {specKey: 'Looks', specValue: 'Very Awesome'},
-    ]);
-    const [categories, setCategories] = useState(['All']);
-    const [tags, setTags] = useState([]);
-    const [hasOptions, setHasOptions] = useState(true);
-    const [inStock, setInStock] = useState(true);
-
-    const [optionCategories, setOptionCategories] = useState(['color','config']);
-    const [optionCategoriesObject, setOptionCategoriesObject] = useState({
-        color:[
-            { 
-                optionName: 'Glacier Green', 
-                optionFeatures:['this is in green color'],
-                optionSpecs: [
-                    {specKey:'Color', specValue:'Green'}
-                ] 
-            },
-            { 
-                optionName: 'Interstellat Glow', 
-                optionFeatures:['this is in interstellar glow white color'],
-                optionSpecs: [
-                    {specKey:'Color', specValue:'Black'}
-                ]
-            },
-            { 
-                optionName: 'Onyx Black', 
-                optionFeatures:['this is in Onyx black color'],
-                optionSpecs: [
-                    {specKey:'Color', specValue:'Onyx Black'}
-                ]
-            }
-        ],
-        config:[
-            { 
-                optionName: '6GB Ram+128GB Storage', 
-                optionFeatures:['has 6GB Ram', 'has 128GB Storage'],
-                optionSpecs: [
-                    {specKey:'Ram', specValue:'6GB'},
-                    {specKey:'Storage', specValue:'128GB'}
-                ] 
-            },
-            { 
-                optionName: '8GB Ram+128GB Storage', 
-                optionFeatures:['has 8GB Ram', 'has 128GB Storage'],
-                optionSpecs: [
-                    {specKey:'Ram', specValue:'8GB'},
-                    {specKey:'Storage', specValue:'128GB'}
-                ] 
-            },
-            { 
-                optionName: '12GB Ram+256GB Storage', 
-                optionFeatures:['has 12GB Ram', 'has 256GB Storage'],
-                optionSpecs: [
-                    {specKey:'Ram', specValue:'12GB'},
-                    {specKey:'Storage', specValue:'256GB'}
-                ] 
-            }
-        ]
-    });
-    const [productOptions, setProductOptions] = useState({})
+    const [productName, setProductName]                       = useState( product.productName  ?? ''      );
+    const [price, setPrice]                                   = useState( product.price        ?? 0       );
+    const [images, setImages]                                 = useState( product.images       ?? [''] );
+    const [description, setDescription]                       = useState( product.description  ?? ''      );
+    const [features, setFeatures]                             = useState( product.features     ?? ['']      );
+    const [specs, setSpecs]                                   = useState( product.specs        ?? [{specKey:'', specValue:''}]      );
+    const [categories, setCategories]                         = useState( product.categories   ?? ['All'] );
+    const [tags, setTags]                                     = useState( product.tags         ?? []      );
+    const [hasOptions, setHasOptions]                         = useState( product.hasOptions   ?? false   );
+    const [inStock, setInStock]                               = useState( product.inStock      ?? true    );
+    const [optionCategories, setOptionCategories]             = useState(  []      );
+    const [optionCategoriesObject, setOptionCategoriesObject] = useState(  {}      );
+    const [productOptions, setProductOptions]                 = useState(  {}      );
 
     useEffect(()=>{
         console.log('optionCategories=>',optionCategories)
@@ -101,14 +160,6 @@ function AddProduct(props) {
         })
         setRerender(!rerender);
     },[optionCategories])
-    useEffect(()=>{
-        if(!optionCategoriesObject) return;
-        console.log('optionCategoriesObject=>',optionCategoriesObject);
-    },[optionCategoriesObject])
-    useEffect(()=>{
-        if(!features) return;
-        console.log('features=>',features);
-    },[features])
 
     const [tempCat,setTempCat] = useState('');
     const [tempTag,setTempTag] = useState('');
@@ -117,7 +168,7 @@ function AddProduct(props) {
     const Con = (arA,arB)=>{
         // console.log('in Con',arA,arB)
         var arC = [];
-        if(arB == []) return arA;
+        if(!arB || !arA) return;
         arA.forEach(eachA=>{
             arB.forEach(eachB=>{
                 if(eachB?.length> 1){
@@ -155,6 +206,7 @@ function AddProduct(props) {
     const getIndciesFromOptionString = (string) => string.split('_').splice(1);
 
     const startProductOptions = ()=>{
+        if(!optionCategories || optionCategories== [] || optionCategories.length<=0)  return;
         var catlen = optionCategories.map((each)=>optionCategoriesObject[each].length);
         console.log(catlen)
         var optionIndexArr = getOptionsIndexAr(catlen);
@@ -165,7 +217,7 @@ function AddProduct(props) {
             if(!Object.keys(productOptions).includes(each)){
                 localProductOptions[each] = {
                     productFullName: '',
-                    price: '',
+                    price: 0,
                     images: [''],
                     inStock: true,
                     isActive: true,
@@ -179,10 +231,24 @@ function AddProduct(props) {
     const getProductJSON = ()=>{
         var pro = {} ;
         if(hasOptions == true){
+            var localProductOptions = productOptions;
+            Object.keys(localProductOptions).forEach((eachOp,index)=>{
+                if(localProductOptions[eachOp].isActive == false){
+                    localProductOptions[eachOp] = {
+                                                      "productFullName": "",
+                                                      "price": 0,
+                                                      "images": [],
+                                                      "inStock": false,
+                                                      "isActive": false,
+                                                      "optionTags": []
+                                                  }
+                }
+            })
             pro={
                 productName,
-                productOptions,
+                productOptions: localProductOptions,
                 optionCategories,
+                optionCategoriesObject,
                 hasOptions, 
                 categories,
                 tags,
@@ -198,6 +264,7 @@ function AddProduct(props) {
                 hasOptions, 
                 categories,
                 tags,
+                images,
                 description,
                 specs,
                 features
@@ -205,11 +272,17 @@ function AddProduct(props) {
         }
         setProduct(pro);
     }
-    // const {productAddAction ,productMessage ,productError ,productLog, productUpdateReset} = props;
-    
+
+    const {addProductAction, productUpdateReset, productMessage, productError, productLog} = props;
+    useEffect(()=>{
+        setTimeout(()=>{
+            productUpdateReset()
+        },7000)
+    },[productMessage])
     const submitProduct = ()=>{
-        // productAddAction(product);
+        addProductAction(product);
     }
+
     const initForm = (
         <form className="row">
             <div className="col s12 productName-field">
@@ -301,6 +374,7 @@ function AddProduct(props) {
                 <TextInput
                     id={uuid()}
                     s={5}
+                    label={`Spec#${index}(key) =>`}
                     onBlur={(e)=>{
                         var local = specs; 
                         local[index].specKey= e.target.value;
@@ -311,6 +385,7 @@ function AddProduct(props) {
                 <TextInput
                     id={uuid()}
                     s={5}
+                    label={`Spec#${index}(value) =>`}
                     onBlur={(e)=>{
                         var local = specs; 
                         local[index].specValue= e.target.value;
@@ -356,7 +431,7 @@ function AddProduct(props) {
             <div className="col s12 input-field">
                 <input 
                     onChange={(e)=>{setTempCat(e.target.value)}} 
-                    onKeyDown={(e)=>{ if(e.keyCode==13){ e.preventDefault(); setCategories([...categories, tempCat]); setTempCat('');  } }} 
+                    onKeyDown={(e)=>{ if(e.keyCode==13){ e.preventDefault(); setCategories([...categories, tempCat.trim()]); setTempCat('');  } }} 
                     type="text" id='categories-enter' value={tempCat} placeholder='Add Category'
                 />
             </div>
@@ -372,7 +447,7 @@ function AddProduct(props) {
                 key={uuid()}
                 close={false}
                 options={null}
-                onClick={()=>{ setTags(categories.filter((each,eachIndex)=>eachIndex!=index)) }}
+                onClick={()=>{ setTags(tags.filter((each,eachIndex)=>eachIndex!=index)) }}
                 className="green-dark-chip hoverable"
                 >
                 <p>{tag}</p>
@@ -382,7 +457,7 @@ function AddProduct(props) {
             <div className="col s12 input-field">
                 <input 
                     onChange={(e)=>{setTempTag(e.target.value)}} 
-                    onKeyDown={(e)=>{ if(e.keyCode==13){ e.preventDefault(); setTags([...tags, ...tempTag.split(' ')]); setTempTag('');  } }} 
+                    onKeyDown={(e)=>{ if(e.keyCode==13){ e.preventDefault(); setTags([...tags, ...tempTag.trim().toLowerCase().split(' ').filter(each=>![' ','','\n'].includes(each))]); setTempTag('');  } }} 
                     type="text" id='tags-enter' value={tempTag} placeholder='Add Tag'
                 />
             </div>
@@ -397,16 +472,18 @@ function AddProduct(props) {
             <h5 className="center">hasOptions=> true</h5>
             <div className="col s12 input-field">
                 <input 
-                    onChange={(e)=>{setTempOpCat(e.target.value); setRerender(!rerender)}} 
-                    onKeyDown={(e)=>{ if(e.keyCode==13){
-                         setOptionCategories([...optionCategories, tempOpCat]); setTempOpCat(''); 
-                    } }} 
+                    onChange={(e)=>{setTempOpCat(e.target.value);}} 
+                    onKeyDown={(e)=>{if(e.keyCode==13){
+                        e.preventDefault();
+                        setOptionCategories([...optionCategories, tempOpCat]); setTempOpCat(''); setRerender(!rerender)
+                    }}} 
                     type="text" id='tags-enter' value={tempOpCat} placeholder='Add Option Category'
                 />
             </div>
             <div className="col s12">
             {optionCategories.map((opCat,index)=>(
                 <Chip
+                key={uuid()}
                 close={false}
                 options={null}
                 className="green-dark-chip hoverable"
@@ -416,73 +493,57 @@ function AddProduct(props) {
             ))}
             </div>
             <div className="col s12">
-            <Collapsible
-            style={{
-                'border': 'none',
-                "boxShadow": 'none',
-            }}
-            accordion={false}>
+                <Fragment>
                 {Object.keys(optionCategoriesObject)?.sort().map((opCatOb,index)=>(
-                <CollapsibleItem
-                   expanded={false}
-                   header={
-                       <Fragment>
-                           <p className="flow-text head">{index}=>{opCatOb}</p>
-                       </Fragment>
-                   }
-                 //   icon={<Icon>filter_drama</Icon>}
-                   node="div"
-                 >
                  <Fragment>
-                    <Collapsible>
-                    {optionCategoriesObject[opCatOb]?.map((eachElem,elemIndex)=>(
-                    <CollapsibleItem
-                        expanded={false}
-                        header={
-                            <Fragment>
-                            <div className="row">
-                            <div className="col s6"><p className="flow-text head heavy_text">{opCatOb}#{elemIndex}=></p></div>
-                            <div className="col s6 right-align">
-                                <div 
-                                onClick={()=>{
-                                    var local = optionCategoriesObject;
-                                    local[opCatOb] = local[opCatOb].filter((filter, filterindex)=> elemIndex!=filterindex);
-                                    setOptionCategoriesObject(local); setRerender(!rerender);
-                                }}
-                                className="btn red_btn no-wrap"> <i className="material-icons">delete</i> {opCatOb}#{elemIndex}</div>
-                            </div>
-                            </div>
-                            </Fragment>
-                        }
-                        node="div"
-                    >
                     <Fragment>
+                        <p className="white flow-text head">{index}=>{opCatOb}</p>
+                    </Fragment>
+                    <Fragment>
+                    {optionCategoriesObject[opCatOb]?.map((eachElem,elemIndex)=>(
+                    <Fragment key={uuid()}>
+                    <Fragment>
+                        <Fragment>
                         <div className="row">
+                        <div className="col s6"><p className="flow-text head heavy_text">{opCatOb}#{elemIndex}=></p></div>
+                        <div className="col s6 right-align">
+                            <div 
+                            onClick={()=>{
+                                var local = optionCategoriesObject;
+                                local[opCatOb] = local[opCatOb].filter((filter, filterindex)=> elemIndex!=filterindex);
+                                setOptionCategoriesObject(local); setRerender(!rerender);
+                            }}
+                            className="btn red_btn no-wrap"> <i className="material-icons">delete</i> {opCatOb}#{elemIndex}</div>
+                        </div>
+                        </div>
+                        </Fragment>
+                        <div className="row">
+
                             <div className="col s4"><p>OptionName: </p></div>
                             <TextInput
                                 id={uuid()}
                                 s={8}
-                                onChange={(e)=>{
+                                onBlur={(e)=>{
                                     var local = optionCategoriesObject;
                                     local[opCatOb][elemIndex].optionName = e.target.value;
                                     setOptionCategoriesObject(local); setRerender(!rerender);
                                 }}
-                                value={eachElem.optionName}
+                                defaultValue={eachElem.optionName}
                             />
                         </div>
                         <p className="head">Options Features</p>
                         <div className="row">
                         {eachElem.optionFeatures?.map((eachElemFeature,eachElemFeatureIndex)=>(
-                            <Fragment>
+                            <Fragment key={uuid()}>
                             <TextInput
                                 id={uuid()}
                                 s={10}
-                                onChange={(e)=>{
+                                onBlur={(e)=>{
                                     var local = optionCategoriesObject;
                                     local[opCatOb][elemIndex].optionFeatures[eachElemFeatureIndex] = e.target.value;
                                     setOptionCategoriesObject(local); setRerender(!rerender);
                                 }}
-                                value={eachElemFeature}
+                                defaultValue={eachElemFeature}
                             />
                             <div className="col s2">
                                 <div 
@@ -509,26 +570,26 @@ function AddProduct(props) {
                         <p className="head">OptionSpecs</p>
                         <div className="row">
                         {eachElem.optionSpecs?.map((eachElemSpec,eachElemSpecIndex)=>(
-                            <Fragment>
+                            <Fragment key={uuid()}>
                             <TextInput
                                 id={uuid()}
                                 s={5}
-                                onChange={(e)=>{
+                                onBlur={(e)=>{
                                     var local = optionCategoriesObject;
                                     local[opCatOb][elemIndex].optionSpecs[eachElemSpecIndex].specKey = e.target.value;
                                     setOptionCategoriesObject(local); setRerender(!rerender);
                                 }}
-                                value={eachElemSpec.specKey}
+                                defaultValue={eachElemSpec.specKey}
                             />
                             <TextInput
                                 id={uuid()}
                                 s={5}
-                                onChange={(e)=>{
+                                onBlur={(e)=>{
                                     var local = optionCategoriesObject;
                                     local[opCatOb][elemIndex].optionSpecs[eachElemSpecIndex].specValue = e.target.value;
                                     setOptionCategoriesObject(local); setRerender(!rerender);
                                 }}
-                                value={eachElemSpec.specValue}
+                                defaultValue={eachElemSpec.specValue}
                             />
                             <div className="col s2">
                                 <div 
@@ -556,7 +617,7 @@ function AddProduct(props) {
                     <Divider />
                     <Divider />
                     </Fragment>
-                    </CollapsibleItem>
+                    </Fragment>
                     ))}
                     <div className="row">
                         <div className="col s6 center">
@@ -589,11 +650,10 @@ function AddProduct(props) {
                     <div className="center">
                         
                     </div>
-                    </Collapsible>
+                    </Fragment>
                  </Fragment>
-                </CollapsibleItem>
                 ))}
-            </Collapsible>
+                </Fragment>
             <div className="center">
                 <div  onClick={()=>{ startProductOptions() }} className="btn dark_btn">
                     Proceed to Product Options
@@ -607,11 +667,13 @@ function AddProduct(props) {
         <Fragment>
         {Object.keys(productOptions).map((productOption,index)=>(
             
-                <Fragment>
+                <Fragment key={uuid()}>
                 <div className="row">
                     <div className="col s12">
                         <table className="white">
-                        <tr><th className="head">{productOption}</th>{optionCategories.map((each,index)=>(<th key={uuid()}>{optionCategoriesObject[each][getIndciesFromOptionString(productOption)[index]].optionName}</th>))}</tr>
+                        <tbody>
+                        <tr><th className="head">{productOption}</th>{optionCategories && optionCategories.map((each,index)=>(<th key={uuid()}>{optionCategoriesObject[each][getIndciesFromOptionString(productOption)[index]].optionName}</th>))}</tr>
+                        </tbody>
                         </table>
                     </div>
                     <div className="col s6">
@@ -673,12 +735,13 @@ function AddProduct(props) {
                         <TextInput
                             id={uuid()}
                             s={8}
+                            type='number'
                             onBlur={(e)=>{
                                 var local = productOptions;
-                                local[productOption].productPrice = parseFloat(e.target.value);
+                                local[productOption].price = parseFloat(e.target.value);
                                 setProductOptions(local); setRerender(!rerender);
                             }}
-                            defaultValue={productOptions[productOption].productPrice}
+                            defaultValue={productOptions[productOption].price}
                         />
                         {(productOptions[productOption].images && productOptions[productOption].images.length> 0)?(
                             <Fragment>
@@ -708,12 +771,11 @@ function AddProduct(props) {
                                 </div>
                             </Fragment>
                             ))}
-
                             </Fragment>
                         ):(
                             <p className="head center heavy_text">No images right now</p>
                         )}
-                            <div className="center">
+                            <div className="col s12 center">
                                 <div 
                                 onClick={()=>{
                                     var local = productOptions;
@@ -722,6 +784,32 @@ function AddProduct(props) {
                                 }}
                                 className="btn-floating primary-green-dark-bg"><i className="material-icons">add</i></div>
                             </div>
+                            <div className="col s4">Option tags</div>
+                            {(productOptions[productOption].optionTags.map(((tag,tagindex)=>(
+                                <Chip
+                                key={uuid()}
+                                close={false}
+                                options={null}
+                                onClick={()=>{ 
+                                    var local = productOptions;
+                                    local[productOption].optionTags = local[productOption].optionTags.filter((each,eachIndex)=>eachIndex!=tagindex);
+                                    setProductOptions(local); setRerender(!rerender);
+                                }}
+                                className="green-dark-chip hoverable"
+                                >
+                                <p>{tag}</p>
+                              </Chip>
+                            ))))}
+                            <TextInput
+                                id={uuid()}
+                                s={12}
+                                onKeyDown={(e)=>{if(e.keyCode == 13){
+                                    var local = productOptions;
+                                    local[productOption].optionTags = [ ...local[productOption].optionTags , ...e.target.value.trim().split(' ') ];
+                                    setProductOptions(local); setRerender(!rerender);
+                                }}}
+                                defaultValue={''}
+                            />
                         </Fragment>
                     ):(null)}
 
@@ -743,6 +831,7 @@ function AddProduct(props) {
             <TextInput
                 id={uuid()}
                 s={6}
+                type='number'
                 label={'Product Price'}
                 onChange={(e)=>{ setPrice(parseFloat(e.target.value)) }}
                 value={price}
@@ -762,13 +851,45 @@ function AddProduct(props) {
                 </p>
             </div>
             <div className="col s12 center">
+            </div>
+            <div className="col s12"><h6 className="head">Images :</h6></div>
+            {images.map((image,index)=>(
+            <Fragment key={uuid()} >
+                <TextInput
+                id={uuid()}
+                s={10}
+                label={`Image#${index} =>`}
+                onBlur={(e)=>{
+                   var local = images;
+                   local[index] = e.target.value;
+                   console.log(local);
+                    setImages(local)
+                  }}
+                defaultValue={image}
+                />
+                <div className="col s2">
+                    <div onClick={()=>{
+                        var local = images; 
+                        local = local.filter((each,eachIndex)=> eachIndex!=index);
+                        setImages(local); setRerender(!rerender);
+                    }}  className="btn-floating primary-red-bg"><i className="material-icons">delete</i></div>
+                </div>
+            </Fragment>
+            ))}
+        <div className="col s12 center">
+            <div onClick={()=>{ setImages([...images, '']) }} className="btn-floating primary-green-dark-bg"><i className="material-icons">add</i></div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div className="col s12 center">
             <div
-            onClick={()=>{ setStage('addFeatures') }}
-            className="btn dark_btn">
-                Next
+                onClick={()=>{ setStage('addDescription') }}
+                className="btn dark_btn">
+                    Next
             </div>
         </div>
-        </form>
+    </form>
     ):(null)
 
     const productJSON = (
@@ -777,50 +898,60 @@ function AddProduct(props) {
                 {JSON.stringify(product,null,4)}
 
             </p>
+
             <div className="row">
-                <div className="col s6 center">
-                    <div  onClick={setStage('init')} className="btn light_btn"><i className="material-icons">edit</i> Start</div>
+                <div className="s12 center">
+                    <p className="log center">
+                        <span className={(productMessage=='PRODUCT_ADD_ERROR')?("error"):("success")}>{productLog}</span>
+                    </p>
                 </div>
                 <div className="col s6 center">
-                    {()=>{
-                        switch(productMessage){
-                            case 'PRODUCT_ADD_IN_PROGRESS': 
-                                return (<div className="btn dark_btn disabled"> <i className="material-icons">rotate_left</i> Uploading Product </div>);
-                            case 'PRODUCT_ADD_SUCCESS': 
-                                return (<div className="btn dark_btn"> <i className="material-icons">done_all</i> Uploaded Product </div>);
-                            case 'PRODUCT_ADD_ERROR': 
-                                return (<div onClick ={submitProduct} className="btn red_btn"> <i className="material-icons">add</i> Failed=> <i className="material-icons">refresh</i>Retry </div>);
-                            case 'PRODUCT_UPDATE_RESET' :
-                                return (<div onClick ={submitProduct} className="btn dark_btn"> <i className="material-icons">add</i> Upload Product </div>);
-                            default: return (<div onClick ={submitProduct} className="btn dark_btn"> <i className="material-icons">add</i> Upload Product </div>);
-                        }
-                    }}
+                    <div onClick={()=>{setStage('init')}} className="btn light_btn">
+                        <i className="material-icons">edit</i> Start
+                    </div>
+                </div>
+                <div className="col s6 center">
+                    {(productMessage == 'PRODUCT_UPDATE_RESET')?(<div className="btn dark_btn" onClick={submitProduct} ><i className="material-icons">add</i> Upload Product</div>):('')}
+                    {(productMessage == 'PRODUCT_ADD_IN_PROGRESS')?(<div className="btn dark_btn"> Uploading....</div>):('')}
+                    {(productMessage == 'PRODUCT_ADD_ERROR')?(<div className="btn red_btn" onClick={submitProduct} > Failed! <i  className="material-icons">replay</i> Retry</div>):('')}
+                    {(productMessage == 'PRODUCT_ADD_SUCCESS')?(<div className="btn dark_btn"><i  className="material-icons">done_all</i>Uploaded</div>):('')}
                 </div>
             </div>
         </div>
     )
     const formStage = {
-        'init': initForm,
-        'hasOptions': hasOptionsForm,
-        'doesnotHasOptions': doesnotHasOptionsForm,
-        'addDescription': descriptionForm,
-        'addFeatures': addFeaturesForm,
-        'addSpecs': addSpecsForm,
-        'addCategoriesAndTags': addCategoriesAndTagsForm,
-        'productOptions': productOptionsForm,
-        'productJSON': productJSON
+        'init'                 :  {form: initForm                 ,show: true                , btnTitle:'Home' },
+        'hasOptions'           :  {form: hasOptionsForm           ,show: (hasOptions==true ) , btnTitle:'Has Options' },
+        'productOptions'       :  {form: productOptionsForm       ,show: (hasOptions==true ) , btnTitle:'Product Options' },
+        'doesnotHasOptions'    :  {form: doesnotHasOptionsForm    ,show: (hasOptions==false) , btnTitle:'No Options' },
+        'addDescription'       :  {form: descriptionForm          ,show: true                , btnTitle:'Description' },
+        'addFeatures'          :  {form: addFeaturesForm          ,show: true                , btnTitle:'Features' },
+        'addSpecs'             :  {form: addSpecsForm             ,show: true                , btnTitle:'Specifications' },
+        'addCategoriesAndTags' :  {form: addCategoriesAndTagsForm ,show: true                , btnTitle:'Categories and Tags' },
+        'productJSON'          :  {form: productJSON              ,show: true                , btnTitle:'Product Upload' }
     }
 
     return (
         <div className="AddProduct Page" >
             <div className="container">
                 <h4 className="center head">Add <span className=" heavy_text">Product</span></h4>
-                <div className="row-flex-center flex-wrap">
-                {Object.keys(formStage).map((each)=>(
-                    <div key={uuid()} className="btn dark_btn" onClick={()=>{setStage(each)}} >{each}</div>
-                ))}
-                </div>
-                { formStage[stage] }
+                <Collapsible>
+                    <CollapsibleItem
+                    header={
+                        <p className="center head heavy_text"> Navigation </p>
+                    }
+                    >
+                        <div className="row-flex-center flex-wrap">
+                            {Object.keys(formStage).map((each)=>(
+                            (formStage[each].show)
+                            ?(<div key={uuid()} className="btn dark_btn" onClick={()=>{setStage(each)}} >{formStage[each].btnTitle}</div>)
+                            :(<div key={uuid()} className="btn dark_btn disabled" onClick={()=>{setStage(each)}} >{formStage[each].btnTitle}</div>)
+                            ))}
+                            <a href="/addProduct"><div key={uuid()} className="btn red_btn" onClick={()=>{setProduct({})}} >reset product</div></a>
+                        </div>
+                    </CollapsibleItem>
+                </Collapsible>
+                { formStage[stage].form }
             </div>
         </div>
     )
@@ -830,18 +961,18 @@ const mapStateToProps = (state)=>{
     return {
         productMessage  : state.productUpdates.productMessage,
         productError    : state.productUpdates.productError,
-        productLog      : state.productUpdates.productLog
+        productLog      : state.productUpdates.productLog,
     }
 }
 
 const mapDispatchToProps = (dispatch)=>{
-    return {
-        productAddAction: (product)=>{ dispatch( addProductAction(product) ) },
-        productUpdateReset: ()=>{ dispatch( productUpdateReset() ) }
+    return{
+        addProductAction: (product)=>{dispatch(addProductAction(product))},
+        productUpdateReset: ()=>{ dispatch(productUpdateReset()) }
     }
 }
 
 export default compose(
-    // connect(mapStateToProps, mapDispatchToProps),
-    withRouter
+    withRouter,
+    connect(mapStateToProps, mapDispatchToProps)
 )(AddProduct)
