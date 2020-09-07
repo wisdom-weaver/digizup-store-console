@@ -19,19 +19,19 @@ function AddProduct(props) {
     const [stage, setStage] = useState('init');
     const [rerender, setRerender] = useState(false);
 
-    const [productName, setProductName]                       = useState(  ''      );
-    const [price, setPrice]                                   = useState(  0       );
-    const [images, setImages]                                 = useState(  [''] );
-    const [description, setDescription]                       = useState(  ''      );
-    const [features, setFeatures]                             = useState(  ['']      );
-    const [specs, setSpecs]                                   = useState(  [{specKey:'', specValue:''}]      );
-    const [categories, setCategories]                         = useState(  ['All'] );
-    const [tags, setTags]                                     = useState(  []      );
-    const [hasOptions, setHasOptions]                         = useState(  false   );
-    const [inStock, setInStock]                               = useState(  true    );
-    const [optionCategories, setOptionCategories]             = useState(  []      );
-    const [optionCategoriesObject, setOptionCategoriesObject] = useState(  {}      );
-    const [productOptions, setProductOptions]                 = useState(  {}      );
+    const [productName, setProductName]                       = useState( product.productName             ??  ''      );
+    const [price, setPrice]                                   = useState( product.price                   ??  0       );
+    const [images, setImages]                                 = useState( product.images                  ??  [''] );
+    const [description, setDescription]                       = useState( product.description             ??  ''      );
+    const [features, setFeatures]                             = useState( product.features                ??  ['']      );
+    const [specs, setSpecs]                                   = useState( product.specs                   ??  [{specKey:'', specValue:''}]      );
+    const [categories, setCategories]                         = useState( product.categories              ??  ['All'] );
+    const [tags, setTags]                                     = useState( product.tags                    ??  []      );
+    const [hasOptions, setHasOptions]                         = useState( product.hasOptions              ??  false   );
+    const [inStock, setInStock]                               = useState( product.inStock                 ??  true    );
+    const [optionCategories, setOptionCategories]             = useState( product.optionCategories        ??  []      );
+    const [optionCategoriesObject, setOptionCategoriesObject] = useState( product.optionCategoriesObject  ??  {}      );
+    const [productOptions, setProductOptions]                 = useState( product.productOptions          ??  {}      );
 
     useEffect(()=>{
         console.log('optionCategories=>',optionCategories)
@@ -694,7 +694,7 @@ function AddProduct(props) {
                                 s={12}
                                 onKeyDown={(e)=>{if(e.keyCode == 13){
                                     var local = productOptions;
-                                    local[productOption].optionTags = [ ...local[productOption].optionTags , ...e.target.value.trim().split(' ') ];
+                                    local[productOption].optionTags = [ ...local[productOption].optionTags , ...e.target.value.trim().toLowerCase().split(' ').filter(each=>![' ','','\n'].includes(each)) ];
                                     setProductOptions(local); setRerender(!rerender);
                                 }}}
                                 defaultValue={''}

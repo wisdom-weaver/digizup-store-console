@@ -8,7 +8,6 @@ import { unstable_createMuiStrictModeTheme } from '@material-ui/core';
 import { v1 as uuid } from 'uuid';
 import { NavLink } from 'react-router-dom';
 import InfoCard from '../components/InfoCard';
-import ProductSearchCard from '../components/ProductSearchCard';
 
 function SearchProduct() {
     
@@ -85,5 +84,4 @@ function SearchProduct() {
         </div>
     )
 }
-
-export default SearchProduct
+export default SearchOrder

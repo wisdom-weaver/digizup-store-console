@@ -3,11 +3,11 @@ export const updateProductInstock  = (productid, hasOptions, option ,inStock)=>{
     return (dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
         if(hasOptions){
-            firestore.collection('products').doc(productid).update({ [`${option}.inStock`]: inStock });
-            console.log(`firestore.collection('products').doc(${productid}).update({ [\`${option}.inStock\`]: inStock })`)
+            var updateOb = {};
+            updateOb[`productOptions.${option}.inStock`] = inStock
+            firestore.collection('products').doc(productid).update( updateOb );
         }else{
             firestore.collection('products').doc(productid).update({ inStock });
-            console.log(`firestore.collection('products').doc(${productid}).update({ inStock })`);
         }
     }
 }
