@@ -154,6 +154,8 @@ function Order(props){
                 <div className="col s12 center">
                     Current Status: <span className="heavy_text">{order.status}</span>
                 </div>
+                {(order.isOpen)?(
+                <Fragment>
                 <div className="col s12 l8 center">
                 <Select
                   id="statusSelection"
@@ -192,6 +194,8 @@ function Order(props){
                         Update Status
                     </div>
                 </div>
+                </Fragment>
+                ):(null)}
                 </div>
             </div>
             </div>
@@ -213,7 +217,7 @@ function Order(props){
             </tbody>
             </table>
             </div>
-            <div className="col s12">
+            {(order.isOpen == true)?(<div className="col s12">
                 <div className="valign-wrapper">
                 <TextInput
                     id={uuid()}
@@ -224,20 +228,20 @@ function Order(props){
                     }}
                     onKeyDown={(e)=>{if(e.keyCode == 13){
                         addTrack();
-                        setLocalTrack();
+                        setLocalTrack('');
                     }}}
-                    defaultValue={localTrack}
+                    value={localTrack}
                 />
                 <div className="col s2">
                     <div 
                     onClick = {()=>{ 
                         addTrack();
-                        setLocalTrack();
+                        setLocalTrack('');
                     }}
                     className="btn-floating primary-green-dark-bg"><i className="material-icons">add</i></div>
                 </div>
                 </div>
-            </div>
+            </div>):(null)}
 
             </div>
             </div>
