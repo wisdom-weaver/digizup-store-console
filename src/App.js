@@ -14,6 +14,8 @@ import AddProduct from './views/AddProduct';
 import Delayed from './utils/Delayed';
 import InfoCard from './components/InfoCard';
 import SearchProduct from './views/SearchProduct';
+import SearchOrder from './views/SearchOrder';
+import Order from './views/Order';
 
 
 function App(props) {
@@ -38,6 +40,8 @@ function App(props) {
                       <Route exact path="/product/:productid"> <Product /> </Route>
                       <Route exact path="/addProduct" > <AddProduct /> </Route> 
                       <Route exact path="/searchProduct" > <SearchProduct />  </Route> 
+                      <Route exact path="/searchOrder" > <SearchOrder /> </Route> 
+                      <Route exact path="/order/:oaid" > <Order /> </Route> 
                       <Route exact path="/"> <Home /> </Route>
                     </Fragment>
                   ):(
