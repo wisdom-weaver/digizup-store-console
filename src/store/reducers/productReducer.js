@@ -13,6 +13,12 @@ export const productReducer = (state = initState, action)=>{
             return { productMessage: action.type, productLog:'Product Add Success', productError: null };
         case 'PRODUCT_ADD_ERROR': 
             return { productMessage: action.type, productLog:'Product Add Error', productError: action.err };
+        case 'PRODUCT_SET_IN_PROGRESS': 
+            return { productMessage: action.type, productLog:'Product Adding...', productError: null };
+        case 'PRODUCT_SET_SUCCESS': 
+            return { productMessage: action.type, productLog:'Product Add Success', productError: null };
+        case 'PRODUCT_SET_ERROR': 
+            return { productMessage: action.type, productLog:'Product Add Error', productError: action.err };
         case 'PRODUCT_UPDATE_RESET' :
             return {...initState, searchMessage:action.type};
         default: return state;

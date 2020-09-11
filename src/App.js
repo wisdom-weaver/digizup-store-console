@@ -16,6 +16,9 @@ import InfoCard from './components/InfoCard';
 import SearchProduct from './views/SearchProduct';
 import SearchOrder from './views/SearchOrder';
 import Order from './views/Order';
+import EditCategory from './views/EditCategory';
+import AddCategory from './views/AddCategory';
+import EditProduct from './views/EditProduct';
 
 
 function App(props) {
@@ -38,10 +41,13 @@ function App(props) {
                 {(authuid && profile.isAdmin)?(
                   <Fragment>
                       <Route exact path="/product/:productid"> <Product /> </Route>
-                      <Route exact path="/addProduct" > <AddProduct /> </Route> 
                       <Route exact path="/searchProduct" > <SearchProduct />  </Route> 
+                      <Route exact path="/addProduct" > <AddProduct /> </Route> 
+                      <Route exact path="/editProduct/:productid" > <EditProduct /> </Route> 
                       <Route exact path="/searchOrder" > <SearchOrder /> </Route> 
                       <Route exact path="/order/:oaid" > <Order /> </Route> 
+                      <Route exact path="/addCategory" > <AddCategory /> </Route> 
+                      <Route exact path="/editCategory/:categoryid" > <EditCategory /> </Route> 
                       <Route exact path="/"> <Home /> </Route>
                     </Fragment>
                   ):(

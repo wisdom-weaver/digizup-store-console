@@ -22,7 +22,7 @@ function ProductSearchCard({product, updateProductInstock}) {
                 className="small-table">
                     <tbody>
                       <tr key={uuid()}>
-                          <th>{product.id}</th>
+                      <th><NavLink to={`/editProduct/${product.id}`} className="head">{product.id}</NavLink></th>
                       </tr>
                       <tr>
                           <td>Product Name:  <span className="text-link heavy_text">{product.productName}</span></td>
@@ -34,8 +34,7 @@ function ProductSearchCard({product, updateProductInstock}) {
                 (product.productOptions[optionk].isActive)?(
                 <Fragment key={uuid()}>
                 <p className="white small-font" >
-                    OptionName: 
-                        <NavLink to={`/product/${product.id}/?productOption=${optionk}`} > <span className="text-link heavy_text">{product.productOptions[optionk].productFullName}</span></NavLink>
+                    OptionName: product.productOptions[optionk].productFullName
                     
                 </p>
                 <table className="small-table" >
@@ -80,7 +79,7 @@ function ProductSearchCard({product, updateProductInstock}) {
         <table className="small-table" >
             <tbody>
                 <tr key={uuid()}>
-                    <th>{product.id}</th>
+                    <th><NavLink to={`/editProduct/${product.id}`} className="head">{product.id}</NavLink></th>
                     <td className="no-wrap valign-wrapper" >hasOptions:{(product.hasOptions?(<Icon className="primary-green-dark-text" >done_all</Icon>):(<Icon className="primary-red-text" >close</Icon>))}</td>
                     <td>
                         <label>
@@ -96,7 +95,7 @@ function ProductSearchCard({product, updateProductInstock}) {
                 </tr>
             </tbody>
             </table>
-            <p className="small-font">Product Name: <NavLink to={`/product/${product.id}`} > <span className="text-link">{product.productName}</span></NavLink></p>
+            <p className="small-font">Product Name: {product.productName}</p>
             <Divider />
             <Divider />
             <Divider />

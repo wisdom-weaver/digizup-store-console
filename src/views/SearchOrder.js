@@ -21,9 +21,10 @@ function SearchOrder() {
     const [searchOrderTerm, setSearchOrderTerm] = useState(soTerm);
     const searchCategories = ['order-id','user-id','oa-id'];
     const [log, setLog]  = useState('');
-
+    const initQuery = {
+        doc: 'default'
+    }
     const getQuery = (searchOrderTerm, searchOrderCategory)=>{
-        if(searchOrderTerm =='') return {doc: 'default'};
         if(searchOrderTerm == 'all')return {};
         else if(searchOrderCategory == 'order-id')return {where: ['orderid', '==', searchOrderTerm]};
         else if(searchOrderCategory == 'consumer-id')return {where: ['consumeruid', '==', searchOrderTerm]};
@@ -36,10 +37,9 @@ function SearchOrder() {
     const [orders, setOrders] = useState([]);
 
     useEffect(()=>{
-        if(!isLoaded(ordersForAdmins)) return;
-        if((!ordersForAdmins || ordersForAdmins.length == 0)&&searchOrderTerm!=''){setLog('NOT_FOUND'); setOrders([]); return;}
+        if(!isLoaded(ordersForAdmins)) return setLog('SEARCHING');
+        if(!ordersForAdmins || ordersForAdmins.length == 0)  return setLog('NOT_FOUND');
         setOrders(_.orderBy(ordersForAdmins,['createdAt'],['desc']));
-        setLog('FETCHED');
     },[ordersForAdmins])
 
     const orderSearchFn = (searchOrderTerm, searchOrderCategory)=>{
@@ -55,7 +55,7 @@ function SearchOrder() {
             console.log('history effect');
             queryPar = queryString.parse(history.location.search);
             soTerm= queryPar?.searchOrderTerm ?? '' ;
-            if(soTerm == '') return;
+
             soCat = queryPar?.searchOrderCategory ?? 'oa-id';
             setSearchOrderCategory(soCat);
             setSearchOrderTerm(soTerm);

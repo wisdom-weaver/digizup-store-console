@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { useFirestoreConnect } from 'react-redux-firebase';
+import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
 import { useSelector, connect } from 'react-redux';
 import { useEffect } from 'react';
 // import 'materilize-css'
@@ -11,22 +11,27 @@ import InfoCard from '../components/InfoCard';
 import ProductSearchCard from '../components/ProductSearchCard';
 
 function SearchProduct() {
-    
-    const [productsQuery, setProductsQuery ] = useState({
+    const initQuery = {
         collection: 'products',
         doc: 'default'
-    })
+    }
+    const [productsQuery, setProductsQuery ] = useState(initQuery);
     useFirestoreConnect([productsQuery]);
     
     const products = useSelector(state=> state.firestore.ordered.products)??[];
+    const [productsLog, setProductsLog] = useState('');
     useEffect(()=>{
-        console.log('products=>', products)
+        if(JSON.stringify(initQuery) === JSON.stringify(productsQuery)){ console.log('init query');return setProductsLog(''); }
+        // console.log('passed',initQuery == productsQuery, initQuery, productsQuery);
+        if(!isLoaded(products)) return setProductsLog('LOADING_PRODUCTS');
+        if(!products || products.length == 0) return setProductsLog('NOT_FOUND_PRODUCTS')
+        return setProductsLog('LOADED_PRODUCTS')
     },[products]);
     const [productSearchTerm, setProductSearchTerm] = useState('');
     const submitProductSearch = ()=>{
-        // if(!productSearchTerm) return;
+        setProductsLog('LOADING_PRODUCTS');
         var local = productSearchTerm.trim();
-        console.log('productSearchTerm => ',productSearchTerm);
+        // console.log('productSearchTerm => ',productSearchTerm);
         if(local == 'all'){
             setProductsQuery({
                 collection: 'products',
@@ -37,6 +42,7 @@ function SearchProduct() {
                 doc: local
             });
         }
+
     }
     const searchBar = (
         <div className="searchbar_container">
@@ -52,25 +58,15 @@ function SearchProduct() {
       </div>
       </div>
     )
-    const ProductsViewJSX= (productSearchTerm)?(
-        (products && products.length>0)?(
-            <div className="row">
-                    <div className="col s12" key={uuid()}> 
-                        {products.map(product=>(
-                            <ProductSearchCard key={uuid()} product={product} />
-                        ))}    
-                    </div>
-            </div>
-        ):(
-            <InfoCard>
-                <p className="flow-text center">NoProducts Found</p>
-            </InfoCard>
-        )
-    ):(
-        <InfoCard>
-            <p className="flow-text center">Please search by product id or tags</p>
-        </InfoCard>
-    )
+    const ProductsViewJSX= (products && products.length>0)?(
+        <div className="row">
+                <div className="col s12" key={uuid()}> 
+                    {products.map(product=>(
+                        <ProductSearchCard key={uuid()} product={product} />
+                    ))}    
+                </div>
+        </div>
+    ):(null)
     
 
     return (
@@ -80,7 +76,11 @@ function SearchProduct() {
                 <div className="searchbar">
                     {searchBar}
                 </div>
-                {ProductsViewJSX}
+                {(productsLog == '')?(<InfoCard><p className="flow-text center">Please search by product id </p></InfoCard>):(null)}
+                {(productsLog == 'LOADING_PRODUCTS')?(<InfoCard><p className="flow-text center">Searching....</p></InfoCard>):(null)}
+                {(productsLog == 'NOT_FOUND_PRODUCTS')?(<InfoCard><p className="flow-text center">NoProducts Found</p></InfoCard>):(null)}
+                {(productsLog == 'LOADED_PRODUCTS')?(ProductsViewJSX):(null)}
+                
             </div>    
         </div>
     )

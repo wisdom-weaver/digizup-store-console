@@ -952,7 +952,7 @@ input:-webkit-autofill:active {
         min-height: 120px;
     }
     .banner-carousel{
-        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100% );
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 90% );
         .owl-item{
             overflow: hidden;;
         }
@@ -1065,4 +1065,9 @@ input:-webkit-autofill:active {
 }
 .overflow-visble{
     overflow: visible !important;
+}
+
+input::placeholder{
+    opacity: 1 !important;
+    color: black;
 }

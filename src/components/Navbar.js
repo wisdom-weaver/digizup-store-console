@@ -194,6 +194,7 @@ function Navbar(props) {
                       {overlayLink('/addProduct','Add Product')}
                       {overlayLink('/searchProduct','Search Product')}
                       {overlayLink('/searchOrder','Search Orders')}
+                      {overlayLink("/addCategory", "Add Category")}
                     </CollapsibleItem>
                     <CollapsibleItem
                       expanded={false}

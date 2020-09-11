@@ -1331,10 +1331,10 @@ input:-webkit-autofill:active {
     min-height: 120px;
   }
   .banner-carousel {
-    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(60%, black), to(rgba(0, 0, 0, 0)));
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, rgba(0, 0, 0, 0) 100%);
-            mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(60%, black), to(rgba(0, 0, 0, 0)));
-            mask-image: linear-gradient(to bottom, black 60%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, black), color-stop(90%, rgba(0, 0, 0, 0)));
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, rgba(0, 0, 0, 0) 90%);
+            mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, black), color-stop(90%, rgba(0, 0, 0, 0)));
+            mask-image: linear-gradient(to bottom, black 50%, rgba(0, 0, 0, 0) 90%);
   }
   .banner-carousel .owl-item {
     overflow: hidden;
@@ -1531,5 +1531,25 @@ input:-webkit-autofill:active {
 
 .overflow-visble {
   overflow: visible !important;
+}
+
+input::-webkit-input-placeholder {
+  opacity: 1 !important;
+  color: black;
+}
+
+input:-ms-input-placeholder {
+  opacity: 1 !important;
+  color: black;
+}
+
+input::-ms-input-placeholder {
+  opacity: 1 !important;
+  color: black;
+}
+
+input::placeholder {
+  opacity: 1 !important;
+  color: black;
 }
 /*# sourceMappingURL=index.css.map */

@@ -11,7 +11,31 @@ function Home(props) {
 
     const HomePageJSX = (
         <Fragment>
-            <h1>Console Home</h1>
+            <div className="container">
+            <h3 className="center head"><span className="heavy_text">Digizup</span> Store <span className="heavy_text">Console</span></h3>
+            <div className="card round-card">
+            <div className="card-content">
+            <div className="row"> 
+                <div className="col s6 center">
+                    <p className="flow-text center">Add Product</p>
+                    <NavLink to="/addProduct"><div className="btn-floating primary-green-dark-bg"><i className="material-icons">add</i></div></NavLink> 
+                </div>
+                <div className="col s6 center">
+                    <p className="flow-text center">Add Category</p>
+                    <NavLink to="/addCategory"><div className="btn-floating primary-green-dark-bg"><i className="material-icons">add</i></div></NavLink> 
+                </div>
+                <div className="col s6 center">
+                    <p className="flow-text center">Search Product</p>
+                    <NavLink to="/searchProduct"><div className="btn-floating primary-green-dark-bg"><i className="material-icons">search</i></div></NavLink> 
+                </div>
+                <div className="col s6 center">
+                    <p className="flow-text center">Search Order</p>
+                    <NavLink to="/searchOrder"><div className="btn-floating primary-green-dark-bg"><i className="material-icons">search</i></div></NavLink> 
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
         </Fragment>
     )
         
