@@ -34,7 +34,7 @@ function ProductSearchCard({product, updateProductInstock}) {
                 (product.productOptions[optionk].isActive)?(
                 <Fragment key={uuid()}>
                 <p className="white small-font" >
-                    OptionName: product.productOptions[optionk].productFullName
+                    OptionName: {product.productOptions[optionk].productFullName}
                     
                 </p>
                 <table className="small-table" >
