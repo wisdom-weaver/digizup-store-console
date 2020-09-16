@@ -86,6 +86,10 @@ function AddProduct(props) {
         }
     }
     const getOptionsIndexAr= (lenar)=>{
+        if(!lenar || lenar.length == 0) return;
+        if(lenar.length == 1){
+          return new Array(lenar[0]).fill().map((each,index)=>[index]);
+        }
         var arARRAY = lenar.map((each)=> new Array(each).fill().map((each,index)=>index) ) 
         // console.log('arArray init=> ',arARRAY);
         var last = arARRAY.pop();
@@ -96,6 +100,7 @@ function AddProduct(props) {
 
     const startProductOptions = ()=>{
         if(!optionCategories || optionCategories== [] || optionCategories.length<=0)  return;
+        console.log('optionCategories',optionCategories);
         var catlen = optionCategories.map((each)=>optionCategoriesObject[each].length);
         console.log(catlen)
         var optionIndexArr = getOptionsIndexAr(catlen);
